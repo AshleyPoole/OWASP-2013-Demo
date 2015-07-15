@@ -1,7 +1,36 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+	ViewBag.Title = "Index";
 }
+<br />
+<div class="jumbotron">
+	<h1>World's most secure shopping experiance.</h1>
+	<p>£100 off your first order with us!</p>
+	@Html.ActionLink("Login ", "Authenication", "Login", null, new { @class = "btn btn-primary btn-lg" })
+</div>
 
-<h2>Index</h2>
-
+<div class="row">
+	<div class="col-lg-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">Cheapest Products</div>
+			<div class="panel-body">
+				<p>We are the cheapest source of all products that are listed on our website. You won't find anyone cheaper online.</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">Secure</div>
+			<div class="panel-body">
+				<p>We are the industry leader for providng the most secure online shopping experiance for our customers. We even use HTTPS.</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">Trusted</div>
+			<div class="panel-body">
+				<p>Our customers trust us to supply quality products and on time delivery. We're the fastest source of every made up product. Fact.</p>
+			</div>
+		</div>
+	</div>
+</div>
