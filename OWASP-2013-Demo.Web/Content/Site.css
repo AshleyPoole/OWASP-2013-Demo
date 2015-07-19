@@ -16,3 +16,13 @@ textarea {
     max-width: 280px;
 }
 
+.secure-mode {
+color: greenyellow !important;
+	font-weight: bold;
+}
+
+.insecure-mode {
+color: red !important;
+	font-weight: bold;
+}
+
