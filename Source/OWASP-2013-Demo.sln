@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.Web", "..\O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.Web.Tests", "OWASP-2013-Demo.Web.Tests\OWASP-2013-Demo.Web.Tests.csproj", "{F85C52C4-BC24-453A-A7DD-E1063DFEDB03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.DataAccess", "OWASP-2013-Demo.DataAccess\OWASP-2013-Demo.DataAccess.csproj", "{72DA105C-A403-43DD-AB8E-CE625BBB296B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F85C52C4-BC24-453A-A7DD-E1063DFEDB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F85C52C4-BC24-453A-A7DD-E1063DFEDB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F85C52C4-BC24-453A-A7DD-E1063DFEDB03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72DA105C-A403-43DD-AB8E-CE625BBB296B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72DA105C-A403-43DD-AB8E-CE625BBB296B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72DA105C-A403-43DD-AB8E-CE625BBB296B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72DA105C-A403-43DD-AB8E-CE625BBB296B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
