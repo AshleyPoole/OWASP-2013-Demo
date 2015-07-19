@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model OWASP_2013_Demo.Web.ViewModels.BaseViewModel
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -19,10 +21,9 @@
 				@Html.ActionLink("Secure Shopper", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 			</div>
 			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li id="home"><a href="/">Home</a></li>
+					<li id="securemode"><a class="@(Model.SecureMode ? "secure-mode" : "insecure-mode")" href="#">@(Model.SecureMode ? "Secure" : "Insecure")</a></li>
 				</ul>
 			</div>
 		

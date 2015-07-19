@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using OWASP_2013_Demo.Web.ViewModels;
 
 namespace OWASP_2013_Demo.Web.Controllers
 {
@@ -11,7 +8,7 @@ namespace OWASP_2013_Demo.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            return View(new BaseViewModel(Request));
         }
     }
 }
