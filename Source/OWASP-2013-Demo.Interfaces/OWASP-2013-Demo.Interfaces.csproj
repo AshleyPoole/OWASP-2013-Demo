@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IConfigurationProvider.cs" />
-    <Compile Include="IGoRedirectProvider.cs" />
+    <Compile Include="IRedirectProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

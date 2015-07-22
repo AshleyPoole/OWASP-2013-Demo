@@ -105,6 +105,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
+    <Content Include="Views\Redirect\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -137,16 +138,27 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\RedirectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RedirectRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Source\OWASP-2013-Demo.Interfaces\OWASP-2013-Demo.Interfaces.csproj">
+      <Project>{1A027CCD-A7E6-480E-A5F4-A91BDD947816}</Project>
+      <Name>OWASP-2013-Demo.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Source\OWASP-2013-Demo.Models\OWASP-2013-Demo.Models.csproj">
+      <Project>{9D0DC2CC-EC9F-420E-BC53-096EBB83FBDC}</Project>
+      <Name>OWASP-2013-Demo.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
