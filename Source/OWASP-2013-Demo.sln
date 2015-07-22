@@ -9,11 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.DataAccess"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.Domain", "OWASP-2013-Demo.Domain\OWASP-2013-Demo.Domain.csproj", "{5BE369B2-9109-42CE-A3EF-1A08850AE26F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.Domain.Tests", "OWASP-2013-Demo.Domain.Tests\OWASP-2013-Demo.Domain.Tests.csproj", "{821BA77B-F665-4D56-BC58-D9AF5181490C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.Interfaces", "OWASP-2013-Demo.Interfaces\OWASP-2013-Demo.Interfaces.csproj", "{1A027CCD-A7E6-480E-A5F4-A91BDD947816}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.Models", "OWASP-2013-Demo.Models\OWASP-2013-Demo.Models.csproj", "{9D0DC2CC-EC9F-420E-BC53-096EBB83FBDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.Domain.Tests", "OWASP-2013-Demo.Domain.Tests\OWASP-2013-Demo.Domain.Tests.csproj", "{5365B116-3C8E-4B7B-9A88-2CEDAEBE3B3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,6 @@ Global
 		{5BE369B2-9109-42CE-A3EF-1A08850AE26F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BE369B2-9109-42CE-A3EF-1A08850AE26F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BE369B2-9109-42CE-A3EF-1A08850AE26F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{821BA77B-F665-4D56-BC58-D9AF5181490C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{821BA77B-F665-4D56-BC58-D9AF5181490C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{821BA77B-F665-4D56-BC58-D9AF5181490C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{821BA77B-F665-4D56-BC58-D9AF5181490C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A027CCD-A7E6-480E-A5F4-A91BDD947816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A027CCD-A7E6-480E-A5F4-A91BDD947816}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A027CCD-A7E6-480E-A5F4-A91BDD947816}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{9D0DC2CC-EC9F-420E-BC53-096EBB83FBDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D0DC2CC-EC9F-420E-BC53-096EBB83FBDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D0DC2CC-EC9F-420E-BC53-096EBB83FBDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5365B116-3C8E-4B7B-9A88-2CEDAEBE3B3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5365B116-3C8E-4B7B-9A88-2CEDAEBE3B3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5365B116-3C8E-4B7B-9A88-2CEDAEBE3B3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5365B116-3C8E-4B7B-9A88-2CEDAEBE3B3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
