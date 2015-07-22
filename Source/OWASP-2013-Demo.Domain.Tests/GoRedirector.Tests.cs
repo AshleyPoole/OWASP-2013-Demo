@@ -6,10 +6,10 @@ using OWASP_2013_Demo.Domain;
 using OWASP_2013_Demo.Interfaces;
 
 
-namespace given_that_make_a_redirection_request
+namespace given_that_i_make_a_redirection_request
 {
 	[TestClass]
-	public class when_I_dont_apply_best_security_best_pratices
+	public class when_I_dont_apply_best_security_pratices
 	{
 		private static GoRedirector _redirectProvider;
 		private const string AnotherUrl = "http://www.ashleypoole.co.uk/about-ashley-poole";
@@ -71,17 +71,10 @@ namespace given_that_make_a_redirection_request
 		}
 
 		[TestMethod]
-		public void then_the_redirection_url_should_not_match_that_of_the_input_for_another_domain()
+		public void then_the_redirection_url_should_be_null_for_another_domain_as_this_is_a_invalid_redirect()
 		{
 			var result = _redirectProvider.ProcessGoDirection(AnotherUrl);
-			result.UrlForRedirect.ToString().Should().NotBe(AnotherUrl);
-		}
-
-		[TestMethod]
-		public void then_the_redirection_url_should_be_empty_for_another_domain()
-		{
-			var result = _redirectProvider.ProcessGoDirection(AnotherUrl);
-			result.UrlForRedirect.ToString().Should().Be(String.Empty);
+			result.UrlForRedirect.Should().BeNull();
 		}
 
 		[TestMethod]

@@ -21,17 +21,19 @@ namespace OWASP_2013_Demo.Domain
 			var uri = new Uri(url);
 			var redirectResponse = new Redirect() {Allowed = true, UrlForRedirect = uri};
 
-			if (!_secure) return redirectResponse;
-
-			// Secure mode activated
-			var allowedDomain = _configurationProvider.GetAllowedDomain();
-
-			if (uri.Host != allowedDomain)
+			if (_secure)
 			{
-				redirectResponse.Allowed = false;
-				redirectResponse.ErrorMessage =
-					string.Format(
-						"Potentially dangerous redirect detected and blocked. Submitted url {0} did not match allowed domain list.", url);
+				// Secure mode activated
+				var allowedDomain = _configurationProvider.GetAllowedDomain();
+
+				if (!uri.Host.EndsWith(allowedDomain))
+				{
+					redirectResponse.Allowed = false;
+					redirectResponse.UrlForRedirect = null;
+					redirectResponse.ErrorMessage =
+						string.Format(
+							"Potentially dangerous redirect detected and blocked. Submitted url {0} did not match allowed domain list.", url);
+				}
 			}
 
 			return redirectResponse;
