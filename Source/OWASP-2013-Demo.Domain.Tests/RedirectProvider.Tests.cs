@@ -1,5 +1,4 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using OWASP_2013_Demo.Domain;
@@ -11,7 +10,7 @@ namespace given_that_i_make_a_redirection_request
 	[TestClass]
 	public class when_I_dont_apply_best_security_pratices
 	{
-		private static GoRedirector _redirectProvider;
+		private static RedirectProvider _redirectProvider;
 		private const string AnotherUrl = "http://www.ashleypoole.co.uk/about-ashley-poole";
 
 		[ClassInitialize]
@@ -20,7 +19,7 @@ namespace given_that_i_make_a_redirection_request
 			var mockedConfigProvider = new Mock<IConfigurationProvider>();
 			mockedConfigProvider.Setup(x => x.GetAllowedDomain()).Returns("supersecure.site");
 
-			_redirectProvider = new GoRedirector(mockedConfigProvider.Object);
+			_redirectProvider = new RedirectProvider(mockedConfigProvider.Object);
 		}
 
 		[TestMethod]
@@ -48,7 +47,7 @@ namespace given_that_i_make_a_redirection_request
 	[TestClass]
 	public class when_I_apply_best_security_best_pratices
 	{
-		private static GoRedirector _redirectProvider;
+		private static RedirectProvider _redirectProvider;
 		private const string AllowedUrl = "http://www.supersecure.site/Authentication/Login";
 		private const string AnotherUrl = "http://www.ashleypoole.co.uk/about-ashley-poole";
 
@@ -59,7 +58,7 @@ namespace given_that_i_make_a_redirection_request
 			mockedConfigProvider.Setup(x => x.GetAllowedDomain()).Returns("supersecure.site");
 
 			// True to indicate secure mode is to activated
-			_redirectProvider = new GoRedirector(mockedConfigProvider.Object, true);
+			_redirectProvider = new RedirectProvider(mockedConfigProvider.Object, true);
 		}
 
 		// Negative Tests
