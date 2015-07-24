@@ -16,8 +16,8 @@ namespace given_that_i_make_a_redirection_request
 		[ClassInitialize]
 		public static void Setup(TestContext testContext)
 		{
-			var mockedConfigProvider = new Mock<IConfigurationProvider>();
-			mockedConfigProvider.Setup(x => x.GetAllowedDomain()).Returns("supersecure.site");
+			var mockedConfigProvider = new Mock<ISiteConfiguration>();
+			mockedConfigProvider.Setup(x => x.WebsiteDomain).Returns("supersecure.site");
 
 			_redirectProvider = new RedirectProvider(mockedConfigProvider.Object);
 		}
@@ -33,7 +33,7 @@ namespace given_that_i_make_a_redirection_request
 		public void then_the_redirection_url_should_match_that_of_the_input_url()
 		{
 			var result = _redirectProvider.ProcessGoDirection(AnotherUrl);
-			result.UrlForRedirect.ToString().Should().Be(AnotherUrl);
+			result.Url.ToString().Should().Be(AnotherUrl);
 		}
 
 		[TestMethod]
@@ -42,6 +42,14 @@ namespace given_that_i_make_a_redirection_request
 			var result = _redirectProvider.ProcessGoDirection(AnotherUrl);
 			result.ErrorMessage.Should().BeNullOrEmpty();
 		}
+
+		[TestMethod]
+		public void then_a_null_input_should_result_in_an_handled_error()
+		{
+			var result = _redirectProvider.ProcessGoDirection(null);
+			result.ErrorMessage.Should().NotBeNullOrEmpty();
+		}
+
 	}
 
 	[TestClass]
@@ -54,11 +62,12 @@ namespace given_that_i_make_a_redirection_request
 		[ClassInitialize]
 		public static void Setup(TestContext testContext)
 		{
-			var mockedConfigProvider = new Mock<IConfigurationProvider>();
-			mockedConfigProvider.Setup(x => x.GetAllowedDomain()).Returns("supersecure.site");
+			var mockedConfigProvider = new Mock<ISiteConfiguration>();
+			mockedConfigProvider.Setup(x => x.WebsiteDomain).Returns("supersecure.site");
+			mockedConfigProvider.Setup(x => x.SecureMode).Returns(true);
 
 			// True to indicate secure mode is to activated
-			_redirectProvider = new RedirectProvider(mockedConfigProvider.Object, true);
+			_redirectProvider = new RedirectProvider(mockedConfigProvider.Object);
 		}
 
 		// Negative Tests
@@ -73,7 +82,7 @@ namespace given_that_i_make_a_redirection_request
 		public void then_the_redirection_url_should_be_null_for_another_domain_as_this_is_a_invalid_redirect()
 		{
 			var result = _redirectProvider.ProcessGoDirection(AnotherUrl);
-			result.UrlForRedirect.Should().BeNull();
+			result.Url.Should().BeNull();
 		}
 
 		[TestMethod]
@@ -96,7 +105,7 @@ namespace given_that_i_make_a_redirection_request
 		public void then_the_redirection_url_shouldmatch_that_of_the_input_for_allowed_url()
 		{
 			var result = _redirectProvider.ProcessGoDirection(AllowedUrl);
-			result.UrlForRedirect.ToString().Should().Be(AllowedUrl);
+			result.Url.ToString().Should().Be(AllowedUrl);
 		}
 
 		[TestMethod]

@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,15 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IConfigurationProvider.cs" />
+    <Compile Include="IRedirectObject.cs" />
     <Compile Include="IRedirectProvider.cs" />
+    <Compile Include="ISiteConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OWASP-2013-Demo.Models\OWASP-2013-Demo.Models.csproj">
-      <Project>{9D0DC2CC-EC9F-420E-BC53-096EBB83FBDC}</Project>
-      <Name>OWASP-2013-Demo.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

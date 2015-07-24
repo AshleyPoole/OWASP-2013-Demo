@@ -6,33 +6,40 @@ namespace OWASP_2013_Demo.Domain
 {
 	public class RedirectProvider : IRedirectProvider
 	{
-		private readonly bool _secure;
-		private readonly IConfigurationProvider _configurationProvider;
+		private readonly ISiteConfiguration _siteConfiguration;
 
-	    // Default to unsecure mode
-		public RedirectProvider (IConfigurationProvider configurationProvider, bool secure = false)
+		public RedirectProvider (ISiteConfiguration siteConfiguration)
 		{
-			_secure = secure;
-			_configurationProvider = configurationProvider;
+			_siteConfiguration = siteConfiguration;
 		}
 
-		public Redirect ProcessGoDirection(string url)
+		public IRedirectObject ProcessGoDirection(string url)
 		{
-			var uri = new Uri(url);
-			var redirectResponse = new Redirect() {Allowed = true, UrlForRedirect = uri};
+			var redirectResponse = new Redirect();
 
-			if (_secure)
+			// Check that we've received the url parameter
+			if (string.IsNullOrEmpty(url))
+			{
+				redirectResponse.ErrorMessage = string.Format("Url parameter was missing or malformed - ({0}).", url);
+				return redirectResponse;
+			}
+
+			// Check that url is valid as we don't want a broken redirect
+			var uri = new Uri(url);
+			redirectResponse.Allowed = true;
+			redirectResponse.Url = uri;
+
+			if (_siteConfiguration.SecureMode)
 			{
 				// Secure mode activated
-				var allowedDomain = _configurationProvider.GetAllowedDomain();
-
-				if (!uri.Host.EndsWith(allowedDomain) || !uri.IsAbsoluteUri)
+				if (!uri.Host.EndsWith(_siteConfiguration.WebsiteDomain) || !uri.IsAbsoluteUri)
 				{
 					redirectResponse.Allowed = false;
-					redirectResponse.UrlForRedirect = null;
+					redirectResponse.Url = null;
 					redirectResponse.ErrorMessage =
 						string.Format(
-							"Potentially dangerous redirect detected and blocked. Submitted url ({0}) did not match allowed domain list or was malformed.", url);
+							"Potentially dangerous redirect detected and blocked. Submitted url ({0}) did not match allowed domain list or was malformed.",
+							url);
 				}
 			}
 

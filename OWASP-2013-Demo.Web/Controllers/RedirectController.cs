@@ -1,29 +1,36 @@
 ﻿using System.Web.Mvc;
 using OWASP_2013_Demo.Interfaces;
-using OWASP_2013_Demo.Web.Models;
+using OWASP_2013_Demo.Web.ViewModels;
 
 namespace OWASP_2013_Demo.Web.Controllers
 {
     public class RedirectController : Controller
     {
 	    private readonly IRedirectProvider _redirectProvider;
+	    private readonly ISiteConfiguration _siteConfiguration;
 
-	    public RedirectController(IRedirectProvider redirectProvider)
+	    public RedirectController(IRedirectProvider redirectProvider, ISiteConfiguration siteConfiguration)
 	    {
 		    _redirectProvider = redirectProvider;
+		    _siteConfiguration = siteConfiguration;
 	    }
 
 	    // GET: Go
-        public ActionResult Index(RedirectRequest redirectRequest)
-        {
-			var redirectResponse = _redirectProvider.ProcessGoDirection(redirectRequest.Url);
+		[Route("Index/{url}")]
+		public ActionResult Index(string url)
+		{
+			_siteConfiguration.UpdateSecureMode(Request);
+			var viewModel = new BaseViewModel() { SecureMode = _siteConfiguration.SecureMode };
+
+			var redirectResponse = _redirectProvider.ProcessGoDirection(url);
 
 			// Redirect client to requested url if allowed
-	        if (redirectResponse.Allowed) return Redirect(redirectResponse.UrlForRedirect.ToString());
+			if (redirectResponse.Allowed) return Redirect(redirectResponse.Url.ToString());
 
 			// Else return the error
-	        redirectRequest.Error = redirectResponse.ErrorMessage;
-	        return Index(redirectRequest);
-        }
+			viewModel.ErrorText = redirectResponse.ErrorMessage;
+
+			return View(viewModel);
+		}
     }
 }

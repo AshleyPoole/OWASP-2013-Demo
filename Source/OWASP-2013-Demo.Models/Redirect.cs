@@ -1,11 +1,17 @@
 ﻿using System;
+using OWASP_2013_Demo.Interfaces;
 
 namespace OWASP_2013_Demo.Models
 {
-    public class Redirect
+    public class Redirect : IRedirectObject
     {
-	    public bool Allowed;
-	    public Uri UrlForRedirect;
-	    public string ErrorMessage;
+	    public bool Allowed { get; set; }
+	    public Uri Url { get; set; }
+	    public string ErrorMessage { get; set; }
+
+	    public Redirect()
+	    {
+		    Allowed = false;
+	    }
     }
 }

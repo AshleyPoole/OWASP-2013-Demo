@@ -152,7 +152,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\RedirectRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
   </ItemGroup>
@@ -160,6 +159,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Source\OWASP-2013-Demo.Domain\OWASP-2013-Demo.Domain.csproj">
+      <Project>{5BE369B2-9109-42CE-A3EF-1A08850AE26F}</Project>
+      <Name>OWASP-2013-Demo.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Source\OWASP-2013-Demo.Interfaces\OWASP-2013-Demo.Interfaces.csproj">
       <Project>{1A027CCD-A7E6-480E-A5F4-A91BDD947816}</Project>
       <Name>OWASP-2013-Demo.Interfaces</Name>
