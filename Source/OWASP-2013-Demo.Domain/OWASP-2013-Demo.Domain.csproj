@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1A027CCD-A7E6-480E-A5F4-A91BDD947816}</ProjectGuid>
+    <ProjectGuid>{5BE369B2-9109-42CE-A3EF-1A08850AE26F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OWASP_2013_Demo.Interfaces</RootNamespace>
-    <AssemblyName>OWASP-2013-Demo.Interfaces</AssemblyName>
+    <RootNamespace>OWASP_2013_Demo.Domain</RootNamespace>
+    <AssemblyName>OWASP-2013-Demo.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,8 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,10 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRedirectObject.cs" />
-    <Compile Include="IRedirectProvider.cs" />
-    <Compile Include="ISiteConfiguration.cs" />
+    <Compile Include="RedirectProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OWASP-2013-Demo.Interfaces\OWASP-2013-Demo.Interfaces.csproj">
+      <Project>{1A027CCD-A7E6-480E-A5F4-A91BDD947816}</Project>
+      <Name>OWASP-2013-Demo.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OWASP-2013-Demo.Models\OWASP-2013-Demo.Models.csproj">
+      <Project>{9D0DC2CC-EC9F-420E-BC53-096EBB83FBDC}</Project>
+      <Name>OWASP-2013-Demo.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

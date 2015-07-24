@@ -42,6 +42,15 @@
       <HintPath>..\Source\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\Source\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -92,6 +101,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Unity.Mvc5">
+      <HintPath>..\Source\packages\Unity.Mvc5.1.1\lib\net45\Unity.Mvc5.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <HintPath>..\Source\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -105,6 +117,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
+    <Content Include="Views\Redirect\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -137,6 +150,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Controllers\RedirectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -146,7 +161,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Source\OWASP-2013-Demo.Domain\OWASP-2013-Demo.Domain.csproj">
+      <Project>{5BE369B2-9109-42CE-A3EF-1A08850AE26F}</Project>
+      <Name>OWASP-2013-Demo.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Source\OWASP-2013-Demo.Interfaces\OWASP-2013-Demo.Interfaces.csproj">
+      <Project>{1A027CCD-A7E6-480E-A5F4-A91BDD947816}</Project>
+      <Name>OWASP-2013-Demo.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Source\OWASP-2013-Demo.Models\OWASP-2013-Demo.Models.csproj">
+      <Project>{9D0DC2CC-EC9F-420E-BC53-096EBB83FBDC}</Project>
+      <Name>OWASP-2013-Demo.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
