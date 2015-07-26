@@ -1,7 +1,42 @@
-﻿
+﻿@model OWASP_2013_Demo.Web.ViewModels.ProductsViewModel
 @{
     ViewBag.Title = "Products";
 }
 
 <h2>Products</h2>
 
+@if (string.IsNullOrEmpty(Model.ErrorText))
+{
+	<p>Found @(Model.Products.Count()) products.</p>
+}
+else
+{
+	<div class="validation-summary-errors alert alert-danger">
+		@(Model.ErrorText)
+	</div>
+}
+
+<table class="table-bordered table-condensed" style="width:100%">
+	<tr>
+		<th>Name</th>
+		<th>#</th>
+		<th>Price</th>
+		<th>Colour</th>
+		<th>Size</th>
+		<th>Weight</th>
+		<th>Preview Image</th>
+	</tr>
+
+	@foreach (var product in Model.Products)
+	{
+		<tr>
+			<td class="left">@product.Name</td>
+			<td class="left">@product.ProductNumber</td>
+			<td class="left">@product.ListPrice</td>
+			<td class="left">@product.Color</td>
+			<td class="left">@product.Size</td>
+			<td class="left">@product.Weight</td>
+			<td><img src="data:image;base64,@System.Convert.ToBase64String(@product.ThumbNailPhoto)" width="60" height="40" alt="@product.ThumbnailPhotoFileName"/></td>
+		</tr>
+	}
+</table>
