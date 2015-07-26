@@ -11,14 +11,16 @@ namespace OWASP_2013_Demo.Domain
 		private readonly ISiteConfiguration _siteConfiguration;
 		public string NoProductsFoundByCategoryError { get; private set; }
 		public string InvalidOrMalformedCategoryError { get; private set; }
+		public int DefaultProductCategory { get; private set; }
 
 		public ProductProvider(IProductRepository productRepository, ISiteConfiguration siteConfiguration)
 		{
 			_productRepository = productRepository;
 			_siteConfiguration = siteConfiguration;
 
-			NoProductsFoundByCategoryError = "No products were found for that category. Please make another selection.";
+			NoProductsFoundByCategoryError = "No products were found for the selected category. Please make another selection.";
 			InvalidOrMalformedCategoryError = "An invalid or malformed category was selected. Please make another selection.";
+			DefaultProductCategory = 18;
 		}
 
 		public IProductsCollection GetProductsByCategoryId(string id)
@@ -35,7 +37,7 @@ namespace OWASP_2013_Demo.Domain
 
 			productsCollection.Products = _productRepository.GetProductsBy(string.Format("WHERE ProductCategoryID = {0}", queryParameter));
 
-			if (!productsCollection.Products.Any())
+			if (productsCollection.Products == null || !productsCollection.Products.Any())
 			{
 				productsCollection.ErrorText = NoProductsFoundByCategoryError;
 			}

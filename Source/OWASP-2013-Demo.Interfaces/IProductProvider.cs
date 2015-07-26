@@ -7,5 +7,6 @@ namespace OWASP_2013_Demo.Interfaces
 		IProductsCollection GetProductsByCategoryId(string id);
 		String NoProductsFoundByCategoryError { get; }
 		String InvalidOrMalformedCategoryError { get; }
+		int DefaultProductCategory { get; }
 	}
 }
