@@ -13,6 +13,7 @@ namespace OWASP_2013_Demo.Web
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 			UnityConfig.RegisterComponents();
+			AutoMapperConfig.RegisterMapping();
 		}
 	}
 }
