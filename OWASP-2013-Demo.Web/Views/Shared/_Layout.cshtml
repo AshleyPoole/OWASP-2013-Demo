@@ -1,4 +1,5 @@
-﻿@model OWASP_2013_Demo.Web.ViewModels.BaseViewModel
+﻿@using OWASP_2013_Demo.Domain
+@model OWASP_2013_Demo.Web.ViewModels.BaseViewModel
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,17 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li id="home"><a href="/">Home</a></li>
-					<li id="home"><a href="/products">Products</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Products <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li id="products-mountainbikes"><a href="/products?categoryid=5">Mountain Bikes</a></li>
+							<li id="products-roadbikes"><a href="/products?categoryid=6">Road Bikes</a></li>
+							<li id="products-touringframes"><a href="/products?categoryid=20">Touring Frames</a></li>
+							<li role="separator" class="divider"></li>
+							<li id="products-pedals"><a href="/products?categoryid=17">Pedals</a></li>
+							<li id="products-wheels"><a href="/products?categoryid=21">Wheels</a></li>
+						</ul>
+					</li>
 					<li id="securemode"><a class="@(Model.SecureMode ? "secure-mode" : "insecure-mode")">@(Model.SecureMode ? "Secure" : "Insecure")</a></li>
 				</ul>
 			</div>
