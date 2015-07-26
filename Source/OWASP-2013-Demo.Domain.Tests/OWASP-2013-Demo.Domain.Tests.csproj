@@ -63,8 +63,13 @@
   <ItemGroup>
     <Compile Include="RedirectProvider.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProductProvider.Tests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OWASP-2013-Demo.DataAccess\OWASP-2013-Demo.DataAccess.csproj">
+      <Project>{72DA105C-A403-43DD-AB8E-CE625BBB296B}</Project>
+      <Name>OWASP-2013-Demo.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OWASP-2013-Demo.Domain\OWASP-2013-Demo.Domain.csproj">
       <Project>{5BE369B2-9109-42CE-A3EF-1A08850AE26F}</Project>
       <Name>OWASP-2013-Demo.Domain</Name>

@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IProduct.cs" />
+    <Compile Include="IProductProvider.cs" />
+    <Compile Include="IProductRepository.cs" />
+    <Compile Include="IProductsCollection.cs" />
     <Compile Include="IRedirect.cs" />
     <Compile Include="IRedirectProvider.cs" />
     <Compile Include="ISiteConfiguration.cs" />
