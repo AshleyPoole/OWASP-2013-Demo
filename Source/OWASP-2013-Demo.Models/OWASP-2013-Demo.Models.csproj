@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\Product.cs" />
+    <Compile Include="ProductsCollection.cs" />
     <Compile Include="SiteConfiguration.cs" />
     <Compile Include="Redirect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,7 +2,7 @@
 
 namespace OWASP_2013_Demo.Interfaces
 {
-	public interface IRedirectObject
+	public interface IRedirect
 	{
 		bool Allowed { get; set; }
 		Uri Url { get; set; }

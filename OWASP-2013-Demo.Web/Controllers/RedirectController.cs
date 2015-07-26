@@ -22,7 +22,7 @@ namespace OWASP_2013_Demo.Web.Controllers
 			_siteConfiguration.UpdateSecureMode(Request);
 			var viewModel = new BaseViewModel() { SecureMode = _siteConfiguration.SecureMode };
 
-			var redirectResponse = _redirectProvider.ProcessGoDirection(url);
+			var redirectResponse = _redirectProvider.ProcessRedirection(url);
 
 			// Redirect client to requested url if allowed
 			if (redirectResponse.Allowed) return Redirect(redirectResponse.Url.ToString());

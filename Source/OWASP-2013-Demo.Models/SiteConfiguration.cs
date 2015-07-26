@@ -7,15 +7,17 @@ namespace OWASP_2013_Demo.Models
 	public class SiteConfiguration : ISiteConfiguration
 	{
 		private string _websiteDomain;
+		private string _dbConnection;
 
 		public bool SecureMode { get; private set; }
 
 		public string WebsiteDomain
 		{
-			get
-			{
-				return _websiteDomain ?? (_websiteDomain = ConfigurationManager.AppSettings["WebsiteDomain"]);
-			}
+			get { return _websiteDomain ?? (_websiteDomain = ConfigurationManager.AppSettings["WebsiteDomain"]); }
+		}
+
+		public string DbConnection {
+			get { return _dbConnection ?? (_dbConnection = ConfigurationManager.ConnectionStrings["AdventureWorksLT2012"].ConnectionString); }
 		}
 
 		public SiteConfiguration()

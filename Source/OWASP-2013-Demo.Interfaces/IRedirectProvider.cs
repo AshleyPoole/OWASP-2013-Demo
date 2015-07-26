@@ -2,6 +2,6 @@
 {
     public interface IRedirectProvider
     {
-	    IRedirectObject ProcessGoDirection(string url);
+	    IRedirect ProcessRedirection(string url);
     }
 }

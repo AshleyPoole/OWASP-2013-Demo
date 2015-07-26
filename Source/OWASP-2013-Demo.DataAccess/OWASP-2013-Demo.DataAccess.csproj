@@ -42,7 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OWASP-2013-Demo.Interfaces\OWASP-2013-Demo.Interfaces.csproj">
+      <Project>{1A027CCD-A7E6-480E-A5F4-A91BDD947816}</Project>
+      <Name>OWASP-2013-Demo.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OWASP-2013-Demo.Models\OWASP-2013-Demo.Models.csproj">
+      <Project>{9D0DC2CC-EC9F-420E-BC53-096EBB83FBDC}</Project>
+      <Name>OWASP-2013-Demo.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
