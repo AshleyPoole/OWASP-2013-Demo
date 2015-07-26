@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRedirectObject.cs" />
+    <Compile Include="IRedirect.cs" />
     <Compile Include="IRedirectProvider.cs" />
     <Compile Include="ISiteConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

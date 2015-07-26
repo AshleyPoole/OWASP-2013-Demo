@@ -13,7 +13,7 @@ namespace OWASP_2013_Demo.Domain
 			_siteConfiguration = siteConfiguration;
 		}
 
-		public IRedirectObject ProcessGoDirection(string url)
+		public IRedirect ProcessRedirection(string url)
 		{
 			var redirectResponse = new Redirect();
 

@@ -3,7 +3,7 @@ using OWASP_2013_Demo.Interfaces;
 
 namespace OWASP_2013_Demo.Models
 {
-    public class Redirect : IRedirectObject
+    public class Redirect : IRedirect
     {
 	    public bool Allowed { get; set; }
 	    public Uri Url { get; set; }
