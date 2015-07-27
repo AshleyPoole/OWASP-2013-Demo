@@ -115,8 +115,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\admin\passwords.txt" />
-    <Content Include="Content\admin\readme.txt" />
+    <Content Include="Content\admin\passwords.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\admin\readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
