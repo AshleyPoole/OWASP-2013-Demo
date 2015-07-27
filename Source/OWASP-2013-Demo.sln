@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.Web", "..\OWASP-2013-Demo.Web\OWASP-2013-Demo.Web.csproj", "{2F142B49-7BAA-4F42-8B50-2FB81F32058B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.Web", "OWASP-2013-Demo.Web\OWASP-2013-Demo.Web.csproj", "{2F142B49-7BAA-4F42-8B50-2FB81F32058B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWASP-2013-Demo.DataAccess", "OWASP-2013-Demo.DataAccess\OWASP-2013-Demo.DataAccess.csproj", "{72DA105C-A403-43DD-AB8E-CE625BBB296B}"
 EndProject
