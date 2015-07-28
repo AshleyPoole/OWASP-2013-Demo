@@ -17,12 +17,12 @@ namespace OWASP_2013_Demo.Web.Controllers
 	    }
 
 	    // GET: Products
-        public ActionResult Index(string categoryId)
+        public ActionResult Index(string subcategoryId)
         {
 			_siteConfiguration.UpdateSecureMode(Request);
 
-			var category = string.IsNullOrEmpty(categoryId) ? _productProvider.DefaultProductCategory.ToString() : categoryId;
-	        var productsResult = _productProvider.GetProductsByCategoryId(category);
+			var subcategory = string.IsNullOrEmpty(subcategoryId) ? _productProvider.DefaultProductCategory.ToString() : subcategoryId;
+	        var productsResult = _productProvider.GetProductsBySubcategoryId(subcategory);
 	        var viewModel = Mapper.Map<ProductsViewModel>(productsResult);
 
 	        viewModel.SecureMode = _siteConfiguration.SecureMode;
