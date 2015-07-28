@@ -14,6 +14,7 @@ namespace OWASP_2013_Demo.Models.DB
 		public string Size { get; set; }
 		public decimal? Weight { get; set; }
 		public int? ProductCategoryID { get; set; }
+		public int? ProductSubcategoryID { get; set; }
 		public int? ProductModelID { get; set; }
 		public DateTime SellStartDate { get; set; }
 		public DateTime? SellEndDate { get; set; }

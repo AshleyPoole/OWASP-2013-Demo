@@ -35,7 +35,7 @@ namespace OWASP_2013_Demo.Domain
 				return productsCollection;
 			}
 
-			productsCollection.Products = _productRepository.GetProductsBy(string.Format("WHERE ProductCategoryID = {0}", queryParameter));
+			productsCollection.Products = _productRepository.GetProductsBy(string.Format("WHERE ProductSubcategoryID = {0}", queryParameter));
 
 			if (productsCollection.Products == null || !productsCollection.Products.Any())
 			{
