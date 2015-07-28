@@ -17,7 +17,7 @@ namespace OWASP_2013_Demo.Models
 		}
 
 		public string DbConnection {
-			get { return _dbConnection ?? (_dbConnection = ConfigurationManager.ConnectionStrings["AdventureWorksLT2012"].ConnectionString); }
+			get { return _dbConnection ?? (_dbConnection = ConfigurationManager.ConnectionStrings["AdventureWorks2012"].ConnectionString); }
 		}
 
 		public SiteConfiguration()
