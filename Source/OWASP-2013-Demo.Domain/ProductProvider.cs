@@ -23,7 +23,7 @@ namespace OWASP_2013_Demo.Domain
 			DefaultProductCategory = 18;
 		}
 
-		public IProductsCollection GetProductsByCategoryId(string id)
+		public IProductsCollection GetProductsBySubcategoryId(string id)
 		{
 			var queryParameter = id;
 			var productsCollection = new ProductsCollection();

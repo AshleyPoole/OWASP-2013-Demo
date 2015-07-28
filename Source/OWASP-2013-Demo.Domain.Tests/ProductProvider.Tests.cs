@@ -40,49 +40,49 @@ namespace given_that_i_request_a_products_list
 		[TestMethod]
 		public void using_a_valid_id_i_should_receive_a_products_list()
 		{
-			var result = _productProvider.GetProductsByCategoryId("18");
+			var result = _productProvider.GetProductsBySubcategoryId("18");
 			result.Products.Count().Should().Be(2);
 		}
 
 		[TestMethod]
 		public void using_a_valid_id_i_should_not_receive_an_error()
 		{
-			var result = _productProvider.GetProductsByCategoryId("18");
+			var result = _productProvider.GetProductsBySubcategoryId("18");
 			result.ErrorText.Should().BeNullOrEmpty();
 		}
 
 		[TestMethod]
 		public void using_a_invalid_id_i_should_receive_an_empty_products_list()
 		{
-			var result = _productProvider.GetProductsByCategoryId("99");
+			var result = _productProvider.GetProductsBySubcategoryId("99");
 			result.Products.Count().Should().Be(0);
 		}
 
 		[TestMethod]
 		public void using_a_invalid_id_i_should_receive_an_empty_products_error()
 		{
-			var result = _productProvider.GetProductsByCategoryId("99");
+			var result = _productProvider.GetProductsBySubcategoryId("99");
 			result.ErrorText.Should().Be(_productProvider.NoProductsFoundByCategoryError);
 		}
 
 		[TestMethod]
 		public void using_a_valid_id_plus_extra_injected_parameters_i_should_receive_a_full_products_list()
 		{
-			var result = _productProvider.GetProductsByCategoryId("99 OR 1 = 1");
+			var result = _productProvider.GetProductsBySubcategoryId("99 OR 1 = 1");
 			result.Products.Count().Should().Be(100);
 		}
 
 		[TestMethod]
 		public void using_a_valid_id_plus_extra_injected_parameters_i_should_not_receive_an_error()
 		{
-			var result = _productProvider.GetProductsByCategoryId("99 OR 1 = 1");
+			var result = _productProvider.GetProductsBySubcategoryId("99 OR 1 = 1");
 			result.ErrorText.Should().BeNullOrEmpty();
 		}
 
 		[TestMethod]
 		public void using_a_valid_id_plus_extra_injected_parameters_i_should_receive_a_full_products_list_and_no_error_if_selecting_all_customers_too()
 		{
-			var result = _productProvider.GetProductsByCategoryId("99; SELECT * FROM SalesLT.Customer");
+			var result = _productProvider.GetProductsBySubcategoryId("99; SELECT * FROM SalesLT.Customer");
 			result.Products.Count().Should().Be(100);
 		}
 	}
@@ -118,42 +118,42 @@ namespace given_that_i_request_a_products_list
 		[TestMethod]
 		public void using_a_valid_id_i_should_receive_a_products_list()
 		{
-			var result = _productProvider.GetProductsByCategoryId("18");
+			var result = _productProvider.GetProductsBySubcategoryId("18");
 			result.Products.Count().Should().Be(2);
 		}
 
 		[TestMethod]
 		public void using_a_valid_id_i_should_not_receive_an_error()
 		{
-			var result = _productProvider.GetProductsByCategoryId("18");
+			var result = _productProvider.GetProductsBySubcategoryId("18");
 			result.ErrorText.Should().BeNullOrEmpty();
 		}
 
 		[TestMethod]
 		public void using_a_invalid_id_i_should_receive_an_empty_products_list()
 		{
-			var result = _productProvider.GetProductsByCategoryId("99");
+			var result = _productProvider.GetProductsBySubcategoryId("99");
 			result.Products.Count().Should().Be(0);
 		}
 
 		[TestMethod]
 		public void using_a_invalid_id_i_should_receive_an_empty_products_error()
 		{
-			var result = _productProvider.GetProductsByCategoryId("99");
+			var result = _productProvider.GetProductsBySubcategoryId("99");
 			result.ErrorText.Should().Be(_productProvider.NoProductsFoundByCategoryError);
 		}
 
 		[TestMethod]
 		public void using_a_valid_id_plus_extra_injected_parameters_should_throw_an_error()
 		{
-			var result = _productProvider.GetProductsByCategoryId("18; SELECT * FROM SalesLT.Customer");
+			var result = _productProvider.GetProductsBySubcategoryId("18; SELECT * FROM SalesLT.Customer");
 			result.ErrorText.Should().Be(_productProvider.InvalidOrMalformedCategoryError);
 		}
 
 		[TestMethod]
 		public void using_a_valid_id_plus_extra_injected_parameters_should_return_null_products()
 		{
-			var result = _productProvider.GetProductsByCategoryId("18; SELECT * FROM SalesLT.Customer");
+			var result = _productProvider.GetProductsBySubcategoryId("18; SELECT * FROM SalesLT.Customer");
 			result.Products.Should().BeNullOrEmpty();
 		}
 	}
