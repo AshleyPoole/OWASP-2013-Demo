@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OWASP_2013_Demo.Interfaces.Utilities;
 
 namespace OWASP_2013_Demo.Domain
 {
-	public class PasswordManager
+	public class PasswordManager : IPasswordManager
 	{
+		public bool PasswordMatchesHashed(string unencryptedPassword, string passwordHash, string passwordSalt)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

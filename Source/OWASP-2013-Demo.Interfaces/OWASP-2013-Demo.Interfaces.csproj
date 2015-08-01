@@ -52,6 +52,7 @@
     <Compile Include="Providers\IRedirectProvider.cs" />
     <Compile Include="Entities\ISiteConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\IPasswordManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
