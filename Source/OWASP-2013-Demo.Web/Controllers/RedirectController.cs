@@ -4,18 +4,18 @@ using OWASP_2013_Demo.Web.ViewModels;
 
 namespace OWASP_2013_Demo.Web.Controllers
 {
-    public class RedirectController : Controller
-    {
-	    private readonly IRedirectProvider _redirectProvider;
-	    private readonly ISiteConfiguration _siteConfiguration;
+	public class RedirectController : Controller
+	{
+		private readonly IRedirectProvider _redirectProvider;
+		private readonly ISiteConfiguration _siteConfiguration;
 
-	    public RedirectController(IRedirectProvider redirectProvider, ISiteConfiguration siteConfiguration)
-	    {
-		    _redirectProvider = redirectProvider;
-		    _siteConfiguration = siteConfiguration;
-	    }
+		public RedirectController(IRedirectProvider redirectProvider, ISiteConfiguration siteConfiguration)
+		{
+			_redirectProvider = redirectProvider;
+			_siteConfiguration = siteConfiguration;
+		}
 
-	    // GET: Go
+		// GET: Go
 		[Route("Index/{url}")]
 		public ActionResult Index(string url)
 		{
@@ -32,5 +32,5 @@ namespace OWASP_2013_Demo.Web.Controllers
 
 			return View(viewModel);
 		}
-    }
+	}
 }

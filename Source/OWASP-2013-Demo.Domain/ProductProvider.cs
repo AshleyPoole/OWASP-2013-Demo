@@ -48,10 +48,10 @@ namespace OWASP_2013_Demo.Domain
 
 		private static bool QueryParameterValid(string uncleansedParameter)
 		{
-		    int intOut;
+			int intOut;
 			var regex = new Regex(@"^0*[1-9][0-9]*$");
 
-            return regex.IsMatch(uncleansedParameter) && Int32.TryParse(uncleansedParameter, out intOut);
-        }
+			return regex.IsMatch(uncleansedParameter) && Int32.TryParse(uncleansedParameter, out intOut);
+		}
 	}
 }
