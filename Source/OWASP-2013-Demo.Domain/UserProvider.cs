@@ -27,7 +27,7 @@ namespace OWASP_2013_Demo.Domain
 			_siteConfiguration = siteConfiguration;
 		}
 
-		public IUser AuthenticateUser(string emailAddress, string password)
+		public IAuthentication AuthenticateUser(string emailAddress, string password)
 		{
 			throw new NotImplementedException();
 		}

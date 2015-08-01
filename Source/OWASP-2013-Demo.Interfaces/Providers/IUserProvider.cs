@@ -7,6 +7,6 @@ namespace OWASP_2013_Demo.Interfaces.Providers
 		string NoUserExistsError { get; }
 		string UserPasswordIncorrectError { get; }
 		string UsernameOrPassworIncorrectError { get; }
-		IUser AuthenticateUser(string emailAddress, string password);
+		IAuthentication AuthenticateUser(string emailAddress, string password);
 	}
 }
