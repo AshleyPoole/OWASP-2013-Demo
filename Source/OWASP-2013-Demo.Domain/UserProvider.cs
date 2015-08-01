@@ -5,16 +5,16 @@ using OWASP_2013_Demo.Interfaces.Repositories;
 
 namespace OWASP_2013_Demo.Domain
 {
-	public class CustomerProvider : ICustomerProvider
+	public class UserProvider : IUserProvider
 	{
-		private readonly ICustomerRepository _customerRepository;
+		private readonly IUserRepository _customerRepository;
 
-		public CustomerProvider(ICustomerRepository customerRepository)
+		public UserProvider(IUserRepository customerRepository)
 		{
 			_customerRepository = customerRepository;
 		}
 
-		public ICustomer GetCustomerByEmailAddress(string emailAddress)
+		public IUser GetUserByEmailAddress(string emailAddress)
 		{
 			throw new NotImplementedException();
 		}

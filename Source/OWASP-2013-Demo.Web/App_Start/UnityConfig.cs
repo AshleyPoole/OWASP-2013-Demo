@@ -26,8 +26,8 @@ namespace OWASP_2013_Demo.Web
 			container.RegisterType<IRedirectProvider, RedirectProvider>();
 			container.RegisterType<IProductProvider, ProductProvider>();
 			container.RegisterType<IProductRepository, ProductRepository>();
-			container.RegisterType<ICustomerProvider, CustomerProvider>();
-			container.RegisterType<ICustomerRepository, CustomerRepository>();
+			container.RegisterType<IUserProvider, UserProvider>();
+			container.RegisterType<IUserRepository, UserRepository>();
 
 			container.RegisterInstance<ISiteConfiguration>(new SiteConfiguration(), new ContainerControlledLifetimeManager());
 			

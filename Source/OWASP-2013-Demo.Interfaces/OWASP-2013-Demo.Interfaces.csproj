@@ -40,9 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\ICustomer.cs" />
-    <Compile Include="Providers\ICustomerProvider.cs" />
-    <Compile Include="Repositories\ICustomerRepository.cs" />
+    <Compile Include="Entities\IUser.cs" />
+    <Compile Include="Providers\IUserProvider.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Entities\IProduct.cs" />
     <Compile Include="Providers\IProductProvider.cs" />
     <Compile Include="Repositories\IProductRepository.cs" />

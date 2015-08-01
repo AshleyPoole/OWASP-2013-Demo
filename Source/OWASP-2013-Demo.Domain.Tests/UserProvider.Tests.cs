@@ -10,12 +10,12 @@ namespace given_that_i_request_a_customer
 		[ClassInitialize]
 		public static void Setup(TestContext testContext)
 		{
-			var mockedCustomerRepository = new Mock<ICustomerRepository>();
+			var mockedCustomerRepository = new Mock<IUserRepository>();
 
 			mockedCustomerRepository.Setup(x => x.FetchUserByEmailAddress("git@ashleypoole.co.uk"))
 				.Returns(new { Test = "test" });
 
-			var customerProvider = new CustomerProvider(mockedCustomerRepository.Object);
+			var customerProvider = new UserProvider(mockedCustomerRepository.Object);
 		}
 	}
 }

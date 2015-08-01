@@ -1,6 +1,6 @@
 ﻿namespace OWASP_2013_Demo.Interfaces.Entities
 {
-	public interface ICustomer
+	public interface IUser
 	{
 		int CustomerID { get; set; }
 		int? PersonID { get; set; }

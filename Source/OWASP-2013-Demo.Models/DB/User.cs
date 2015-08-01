@@ -2,7 +2,7 @@
 
 namespace OWASP_2013_Demo.Models.DB
 {
-	public class Customer : ICustomer
+	public class User : IUser
 	{
 		public int CustomerID { get; set; }
 		public int? PersonID { get; set; }

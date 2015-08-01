@@ -2,9 +2,9 @@
 
 namespace OWASP_2013_Demo.Interfaces.Providers
 {
-	public interface ICustomerProvider
+	public interface IUserProvider
 	{
-		ICustomer GetCustomerByEmailAddress(string emailAddress);
+		IUser GetUserByEmailAddress(string emailAddress);
 
 		
 
