@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication.cs" />
     <Compile Include="DB\User.cs" />
     <Compile Include="DB\Product.cs" />
     <Compile Include="ProductsCollection.cs" />

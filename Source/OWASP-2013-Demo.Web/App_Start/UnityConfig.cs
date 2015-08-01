@@ -29,6 +29,8 @@ namespace OWASP_2013_Demo.Web
 			container.RegisterType<IUserProvider, UserProvider>();
 			container.RegisterType<IUserRepository, UserRepository>();
 
+			container.RegisterType<PasswordManager, PasswordManager>();
+
 			container.RegisterInstance<ISiteConfiguration>(new SiteConfiguration(), new ContainerControlledLifetimeManager());
 			
 			return container;

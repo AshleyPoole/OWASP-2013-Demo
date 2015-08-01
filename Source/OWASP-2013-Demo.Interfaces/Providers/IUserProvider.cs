@@ -4,9 +4,9 @@ namespace OWASP_2013_Demo.Interfaces.Providers
 {
 	public interface IUserProvider
 	{
-		IUser GetUserByEmailAddress(string emailAddress);
-
-		
-
+		string NoUserExistsError { get; }
+		string UserPasswordIncorrectError { get; }
+		string UsernameOrPassworIncorrectError { get; }
+		IUser AuthenticateUser(string emailAddress, string password);
 	}
 }
