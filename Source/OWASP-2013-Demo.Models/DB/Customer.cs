@@ -1,4 +1,4 @@
-﻿using OWASP_2013_Demo.Interfaces;
+﻿using OWASP_2013_Demo.Interfaces.Entities;
 
 namespace OWASP_2013_Demo.Models.DB
 {
@@ -17,6 +17,7 @@ namespace OWASP_2013_Demo.Models.DB
 		public int? StoreID { get; set; }
 		public int? TerritoryID { get; set; }
 		public string AccountNumber { get; set; }
+		
 
 		public string FullName
 		{

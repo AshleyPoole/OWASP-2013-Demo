@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using AutoMapper;
-using OWASP_2013_Demo.Interfaces;
+using OWASP_2013_Demo.Interfaces.Entities;
+using OWASP_2013_Demo.Interfaces.Providers;
 using OWASP_2013_Demo.Web.ViewModels;
 
 namespace OWASP_2013_Demo.Web.Controllers

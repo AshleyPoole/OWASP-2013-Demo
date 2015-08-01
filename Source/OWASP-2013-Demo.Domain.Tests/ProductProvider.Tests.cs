@@ -5,7 +5,8 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using OWASP_2013_Demo.Domain;
-using OWASP_2013_Demo.Interfaces;
+using OWASP_2013_Demo.Interfaces.Entities;
+using OWASP_2013_Demo.Interfaces.Repositories;
 using OWASP_2013_Demo.Models.DB;
 
 namespace given_that_i_request_a_products_list

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OWASP_2013_Demo.Interfaces
+namespace OWASP_2013_Demo.Interfaces.Entities
 {
 	public interface IProduct
 	{

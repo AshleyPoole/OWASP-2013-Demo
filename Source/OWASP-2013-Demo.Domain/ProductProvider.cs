@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using OWASP_2013_Demo.Interfaces;
+using OWASP_2013_Demo.Interfaces.Entities;
+using OWASP_2013_Demo.Interfaces.Providers;
+using OWASP_2013_Demo.Interfaces.Repositories;
 using OWASP_2013_Demo.Models;
 
 namespace OWASP_2013_Demo.Domain

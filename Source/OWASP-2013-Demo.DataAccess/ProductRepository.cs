@@ -2,7 +2,8 @@
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using OWASP_2013_Demo.Interfaces;
+using OWASP_2013_Demo.Interfaces.Entities;
+using OWASP_2013_Demo.Interfaces.Repositories;
 using OWASP_2013_Demo.Models.DB;
 
 namespace OWASP_2013_Demo.DataAccess
