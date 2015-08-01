@@ -10,6 +10,7 @@ namespace OWASP_2013_Demo.Web
 		{
 			Mapper.CreateMap<IProduct, ProductViewModel>();
 			Mapper.CreateMap<IProductsCollection, ProductsViewModel>();
+			Mapper.CreateMap<ICustomer, CustomerViewModel>();
 		}
 	}
 }
