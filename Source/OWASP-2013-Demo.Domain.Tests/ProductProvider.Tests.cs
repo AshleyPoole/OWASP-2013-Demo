@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,16 +26,21 @@ namespace given_that_i_request_a_products_list
 			// Mocked repository contains a total of 100 records. Category 18 is a valid category containing products
 			// where as 99 an invalid category and doesn't contain any products.
 
-			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductCategoryID = 18"))
+			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductSubcategoryID = 18"))
 				.Returns(Enumerable.Repeat(new Product(), 2));
-			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductCategoryID = 99"))
+			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductSubcategoryID = 99"))
 				.Returns(Enumerable.Repeat(new Product(), 0));
-			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductCategoryID = 99 OR 1 = 1"))
+			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductSubcategoryID = 99 OR 1 = 1"))
 				.Returns(Enumerable.Repeat(new Product(), 100));
-			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductCategoryID = 99; SELECT * FROM SalesLT.Customer"))
+			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductSubcategoryID = 99; SELECT * FROM Sales.Customer"))
 				.Returns(Enumerable.Repeat(new Product(), 100));
+		    mockedProductRepository.Setup(
+		        x =>
+		            x.GetProductsBy(
+		                "WHERE ProductSubcategoryID = 999999999999999999999999999999999999999999999999999999999999999999999999"))
+		        .Throws(new Exception("System.Data.SqlClient.SqlException"));
 
-			_productProvider = new ProductProvider(mockedProductRepository.Object, mockedSiteConfiguration.Object);
+            _productProvider = new ProductProvider(mockedProductRepository.Object, mockedSiteConfiguration.Object);
 		}
 
 		[TestMethod]
@@ -82,10 +88,19 @@ namespace given_that_i_request_a_products_list
 		[TestMethod]
 		public void using_a_valid_id_plus_extra_injected_parameters_i_should_receive_a_full_products_list_and_no_error_if_selecting_all_customers_too()
 		{
-			var result = _productProvider.GetProductsBySubcategoryId("99; SELECT * FROM SalesLT.Customer");
+			var result = _productProvider.GetProductsBySubcategoryId("99; SELECT * FROM Sales.Customer");
 			result.Products.Count().Should().Be(100);
 		}
-	}
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "System.Data.SqlClient.SqlException")]
+        public void using_a_id_longer_than_the_int_type_i_should_receive_an_exception_from_the_repository()
+        {
+            var result =
+                _productProvider.GetProductsBySubcategoryId(
+                    "999999999999999999999999999999999999999999999999999999999999999999999999");
+        }
+    }
 
 	[TestClass]
 	public class when_I_apply_best_security_practices
@@ -103,13 +118,13 @@ namespace given_that_i_request_a_products_list
 			// Mocked repository contains a total of 100 records. Category 18 is a valid category containing products
 			// where as 99 an invalid category and doesn't contain any products.
 
-			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductCategoryID = 18"))
+			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductSubcategoryID = 18"))
 				.Returns(Enumerable.Repeat(new Product(), 2));
-			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductCategoryID = 99"))
+			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductSubcategoryID = 99"))
 				.Returns(Enumerable.Repeat(new Product(), 0));
-			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductCategoryID = 99 OR 1 = 1"))
+			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductSubcategoryID = 99 OR 1 = 1"))
 				.Returns((IEnumerable<IProduct>) null);
-			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductCategoryID = 99; SELECT * FROM SalesLT.Customer"))
+			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductSubcategoryID = 99; SELECT * FROM Sales.Customer"))
 				.Returns((IEnumerable<IProduct>) null);
 
 			_productProvider = new ProductProvider(mockedProductRepository.Object, mockedSiteConfiguration.Object);
@@ -144,16 +159,25 @@ namespace given_that_i_request_a_products_list
 		}
 
 		[TestMethod]
+        public void using_a_id_longer_than_the_int_type_i_should_receive_an_empty_products_error()
+        {
+            var result =
+                _productProvider.GetProductsBySubcategoryId(
+                    "999999999999999999999999999999999999999999999999999999999999999999999999");
+            result.ErrorText.Should().Be(_productProvider.InvalidOrMalformedCategoryError);
+        }
+
+        [TestMethod]
 		public void using_a_valid_id_plus_extra_injected_parameters_should_throw_an_error()
 		{
-			var result = _productProvider.GetProductsBySubcategoryId("18; SELECT * FROM SalesLT.Customer");
+			var result = _productProvider.GetProductsBySubcategoryId("18; SELECT * FROM Sales.Customer");
 			result.ErrorText.Should().Be(_productProvider.InvalidOrMalformedCategoryError);
 		}
 
 		[TestMethod]
 		public void using_a_valid_id_plus_extra_injected_parameters_should_return_null_products()
 		{
-			var result = _productProvider.GetProductsBySubcategoryId("18; SELECT * FROM SalesLT.Customer");
+			var result = _productProvider.GetProductsBySubcategoryId("18; SELECT * FROM Sales.Customer");
 			result.Products.Should().BeNullOrEmpty();
 		}
 	}
