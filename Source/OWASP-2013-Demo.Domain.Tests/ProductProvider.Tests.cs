@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -33,8 +34,13 @@ namespace given_that_i_request_a_products_list
 				.Returns(Enumerable.Repeat(new Product(), 100));
 			mockedProductRepository.Setup(x => x.GetProductsBy("WHERE ProductSubcategoryID = 99; SELECT * FROM Sales.Customer"))
 				.Returns(Enumerable.Repeat(new Product(), 100));
+		    mockedProductRepository.Setup(
+		        x =>
+		            x.GetProductsBy(
+		                "WHERE ProductSubcategoryID = 999999999999999999999999999999999999999999999999999999999999999999999999"))
+		        .Throws(new Exception("System.Data.SqlClient.SqlException"));
 
-			_productProvider = new ProductProvider(mockedProductRepository.Object, mockedSiteConfiguration.Object);
+            _productProvider = new ProductProvider(mockedProductRepository.Object, mockedSiteConfiguration.Object);
 		}
 
 		[TestMethod]
@@ -85,7 +91,16 @@ namespace given_that_i_request_a_products_list
 			var result = _productProvider.GetProductsBySubcategoryId("99; SELECT * FROM Sales.Customer");
 			result.Products.Count().Should().Be(100);
 		}
-	}
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "System.Data.SqlClient.SqlException")]
+        public void using_a_id_longer_than_the_int_type_i_should_receive_an_exception_from_the_repository()
+        {
+            var result =
+                _productProvider.GetProductsBySubcategoryId(
+                    "999999999999999999999999999999999999999999999999999999999999999999999999");
+        }
+    }
 
 	[TestClass]
 	public class when_I_apply_best_security_practices
@@ -144,6 +159,15 @@ namespace given_that_i_request_a_products_list
 		}
 
 		[TestMethod]
+        public void using_a_id_longer_than_the_int_type_i_should_receive_an_empty_products_error()
+        {
+            var result =
+                _productProvider.GetProductsBySubcategoryId(
+                    "999999999999999999999999999999999999999999999999999999999999999999999999");
+            result.ErrorText.Should().Be(_productProvider.InvalidOrMalformedCategoryError);
+        }
+
+        [TestMethod]
 		public void using_a_valid_id_plus_extra_injected_parameters_should_throw_an_error()
 		{
 			var result = _productProvider.GetProductsBySubcategoryId("18; SELECT * FROM Sales.Customer");
