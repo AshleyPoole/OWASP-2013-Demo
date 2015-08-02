@@ -56,11 +56,14 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PasswordManager.Tests.cs" />
     <Compile Include="UserProvider.Tests.cs" />
     <Compile Include="RedirectProvider.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
