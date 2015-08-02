@@ -3,6 +3,7 @@ using OWASP_2013_Demo.Interfaces.Entities;
 using OWASP_2013_Demo.Interfaces.Providers;
 using OWASP_2013_Demo.Interfaces.Repositories;
 using OWASP_2013_Demo.Interfaces.Utilities;
+using OWASP_2013_Demo.Models;
 
 namespace OWASP_2013_Demo.Domain
 {
@@ -23,16 +24,32 @@ namespace OWASP_2013_Demo.Domain
 			get { return "Error: Username or password is incorrect. Please try again."; }
 		}
 
-		public UserProvider(IUserRepository customerRepository, ISiteConfiguration siteConfiguration, IPasswordManager passwordManager)
+		public UserProvider(IUserRepository customerRepository, IPasswordManager passwordManager, ISiteConfiguration siteConfiguration)
 		{
 			_customerRepository = customerRepository;
-			_siteConfiguration = siteConfiguration;
 			_passwordManager = passwordManager;
+			_siteConfiguration = siteConfiguration;
 		}
 
 		public IAuthentication AuthenticateUser(string emailAddress, string password)
 		{
-			throw new NotImplementedException();
+			var authResponse = new Authentication();
+			var user = _customerRepository.FetchUserByEmailAddress(emailAddress);
+
+			// ** TO DO. SANITISE USER INPUT
+
+			if (user == null)
+			{
+				authResponse.Authenticated = false;
+				authResponse.ErrorText = !_siteConfiguration.SecureMode ? NoUserExistsError : UsernameOrPassworIncorrectError;
+			}
+			else
+			{
+				authResponse.User = user;
+				authResponse.Authenticated = _passwordManager.PasswordMatchesHash(password, user.PasswordHash, user.PasswordSalt);
+			}
+
+			return authResponse;
 		}
 	}
 }

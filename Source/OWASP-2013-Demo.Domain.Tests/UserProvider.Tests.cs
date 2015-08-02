@@ -4,6 +4,7 @@ using Moq;
 using OWASP_2013_Demo.Domain;
 using OWASP_2013_Demo.Interfaces.Entities;
 using OWASP_2013_Demo.Interfaces.Repositories;
+using OWASP_2013_Demo.Interfaces.Utilities;
 using OWASP_2013_Demo.Models.DB;
 
 namespace given_that_i_make_a_user_authenication_request
@@ -18,6 +19,7 @@ namespace given_that_i_make_a_user_authenication_request
 		{
 			var mockedUserRepository = new Mock<IUserRepository>();
 			var mockedSiteConfiguration = new Mock<ISiteConfiguration>();
+			var mockedPasswordManager = new Mock<IPasswordManager>();
 
 			mockedSiteConfiguration.Setup(x => x.SecureMode).Returns(false);
 
@@ -32,7 +34,8 @@ namespace given_that_i_make_a_user_authenication_request
 					PasswordSalt = "Zsrf+go="
 				});
 
-			_userProvider = new UserProvider(mockedUserRepository.Object, mockedSiteConfiguration.Object);
+			_userProvider = new UserProvider(mockedUserRepository.Object, mockedPasswordManager.Object,
+				mockedSiteConfiguration.Object);
 		}
 
 		[TestMethod]
@@ -95,6 +98,7 @@ namespace given_that_i_make_a_user_authenication_request
 		{
 			var mockedUserRepository = new Mock<IUserRepository>();
 			var mockedSiteConfiguration = new Mock<ISiteConfiguration>();
+			var mockedPasswordManager = new Mock<IPasswordManager>();
 
 			mockedSiteConfiguration.Setup(x => x.SecureMode).Returns(false);
 
@@ -109,7 +113,7 @@ namespace given_that_i_make_a_user_authenication_request
 					PasswordSalt = "Zsrf+go="
 				});
 
-			_userProvider = new UserProvider(mockedUserRepository.Object, mockedSiteConfiguration.Object);
+			_userProvider = new UserProvider(mockedUserRepository.Object, mockedPasswordManager.Object, mockedSiteConfiguration.Object);
 		}
 
 		[TestMethod]
