@@ -6,6 +6,7 @@ using OWASP_2013_Demo.Interfaces;
 using OWASP_2013_Demo.Interfaces.Entities;
 using OWASP_2013_Demo.Interfaces.Providers;
 using OWASP_2013_Demo.Interfaces.Repositories;
+using OWASP_2013_Demo.Interfaces.Utilities;
 using OWASP_2013_Demo.Models;
 using Unity.Mvc5;
 
@@ -28,8 +29,7 @@ namespace OWASP_2013_Demo.Web
 			container.RegisterType<IProductRepository, ProductRepository>();
 			container.RegisterType<IUserProvider, UserProvider>();
 			container.RegisterType<IUserRepository, UserRepository>();
-
-			container.RegisterType<PasswordManager, PasswordManager>();
+			container.RegisterType<IPasswordManager, PasswordManager>();
 
 			container.RegisterInstance<ISiteConfiguration>(new SiteConfiguration(), new ContainerControlledLifetimeManager());
 			
