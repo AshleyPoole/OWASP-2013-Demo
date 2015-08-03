@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Web;
+using System.Web.Script.Serialization;
+using System.Web.Security;
 using OWASP_2013_Demo.Interfaces.Entities;
 using OWASP_2013_Demo.Interfaces.Providers;
 using OWASP_2013_Demo.Interfaces.Repositories;
@@ -24,6 +27,27 @@ namespace OWASP_2013_Demo.Domain
 			get { return "Error: Username or password is incorrect. Please try again."; }
 		}
 
+		public IUserPrincipal User
+		{
+			get
+			{
+				if (HttpContext.Current.User.Identity.IsAuthenticated)
+				{
+					// The user is authenticated. Return the user from the forms auth ticket.
+					return ((MySecurityPrincipal)(HttpContext.Current.User)).User;
+				}
+				else if (HttpContext.Current.Items.Contains("User"))
+				{
+					// The user is not authenticated, but has successfully logged in.
+					return (UserPrincipal)HttpContext.Current.Items["User"];
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
+
 		public UserProvider(IUserRepository customerRepository, IPasswordManager passwordManager, ISiteConfiguration siteConfiguration)
 		{
 			_customerRepository = customerRepository;
@@ -31,7 +55,7 @@ namespace OWASP_2013_Demo.Domain
 			_siteConfiguration = siteConfiguration;
 		}
 
-		public IAuthentication AuthenticateUser(string emailAddress, string password)
+		public IAuthentication AuthenticateUser(string emailAddress, string password, HttpResponseBase response)
 		{
 			var authResponse = new Authentication();
 			var user = _customerRepository.FetchUserByEmailAddress(emailAddress);
@@ -47,9 +71,38 @@ namespace OWASP_2013_Demo.Domain
 			{
 				authResponse.User = user;
 				authResponse.Authenticated = _passwordManager.PasswordMatchesHash(password, user.PasswordHash, user.PasswordSalt);
+
+				var userData = new JavaScriptSerializer().Serialize(authResponse.User);
+
+				var ticket = new FormsAuthenticationTicket(1,
+						authResponse.User.EmailAddress,
+						DateTime.Now,
+						DateTime.Now.AddDays(30),
+						true,
+						userData,
+						FormsAuthentication.FormsCookiePath);
+
+				// Encrypt the ticket.
+				var encTicket = FormsAuthentication.Encrypt(ticket);
+
+				// Create the cookie.
+				response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
 			}
 
 			return authResponse;
+		}
+
+		public void Logoff(HttpSessionStateBase session, HttpResponseBase response)
+		{
+			// Delete the user details from cache.
+			session.Abandon();
+
+			// Delete the authentication ticket and sign out.
+			FormsAuthentication.SignOut();
+
+			// Clear authentication cookie.
+			var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, "") {Expires = DateTime.Now.AddYears(-1)};
+			response.Cookies.Add(cookie);
 		}
 	}
 }

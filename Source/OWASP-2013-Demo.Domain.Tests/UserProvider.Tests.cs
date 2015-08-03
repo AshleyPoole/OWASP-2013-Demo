@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Web;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using OWASP_2013_Demo.Domain;
@@ -13,6 +14,7 @@ namespace given_that_i_make_a_user_authenication_request
 	public class when_I_dont_apply_best_security_practices
 	{
 		private static UserProvider _userProvider;
+		private static Mock<HttpResponseBase> _mockedHttpResponseBase;
 
 		[ClassInitialize]
 		public static void Setup(TestContext testContext)
@@ -20,6 +22,7 @@ namespace given_that_i_make_a_user_authenication_request
 			var mockedUserRepository = new Mock<IUserRepository>();
 			var mockedSiteConfiguration = new Mock<ISiteConfiguration>();
 			var mockedPasswordManager = new Mock<IPasswordManager>();
+			_mockedHttpResponseBase = new Mock<HttpResponseBase>();
 
 			mockedSiteConfiguration.Setup(x => x.SecureMode).Returns(false);
 
@@ -41,49 +44,49 @@ namespace given_that_i_make_a_user_authenication_request
 		[TestMethod]
 		public void i_should_get_a_successful_login_response_with_a_user_object_using_valid_credentials()
 		{
-			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "supertruesecret");
+			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "supertruesecret", _mockedHttpResponseBase.Object);
 			result.User.Should().NotBeNull();
 		}
 
 		[TestMethod]
 		public void i_should_get_a_successful_login_response_using_valid_credentials()
 		{
-			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "supertruesecret");
+			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "supertruesecret", _mockedHttpResponseBase.Object);
 			result.Authenticated.Should().BeTrue();
 		}
 
 		[TestMethod]
 		public void i_should_not_get_any_errors_for_a_successful_login_response_using_valid_credentials()
 		{
-			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "supertruesecret");
+			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "supertruesecret", _mockedHttpResponseBase.Object);
 			result.ErrorText.Should().BeNullOrEmpty();
 		}
 
 		[TestMethod]
 		public void i_should_get_an_username_error_if_login_email_address_does_not_exist()
 		{
-			var result = _userProvider.AuthenticateUser("nouser@madeup.com", "supertruesecret");
+			var result = _userProvider.AuthenticateUser("nouser@madeup.com", "supertruesecret", _mockedHttpResponseBase.Object);
 			result.ErrorText.Should().Be(_userProvider.NoUserExistsError);
 		}
 
 		[TestMethod]
 		public void i_should_get_an_authenication_failure_if_login_email_address_does_not_exist()
 		{
-			var result = _userProvider.AuthenticateUser("nouser@madeup.com", "supertruesecret");
+			var result = _userProvider.AuthenticateUser("nouser@madeup.com", "supertruesecret", _mockedHttpResponseBase.Object);
 			result.Authenticated.Should().BeFalse();
 		}
 
 		[TestMethod]
 		public void i_should_get_an_password_error_if_login_password_is_incorrect()
 		{
-			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "superfalsesecret");
+			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "superfalsesecret", _mockedHttpResponseBase.Object);
 			result.ErrorText.Should().Be(_userProvider.UserPasswordIncorrectError);
 		}
 
 		[TestMethod]
 		public void i_should_get_an_authenication_failure_if_login_password_is_incorrect()
 		{
-			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "superfalsesecret");
+			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "superfalsesecret", _mockedHttpResponseBase.Object);
 			result.Authenticated.Should().BeFalse();
 		}
 	}
@@ -92,6 +95,7 @@ namespace given_that_i_make_a_user_authenication_request
 	public class when_I_do_apply_best_security_practices
 	{
 		private static UserProvider _userProvider;
+		private static Mock<HttpResponseBase> _mockedHttpResponseBase;
 
 		[ClassInitialize]
 		public static void Setup(TestContext testContext)
@@ -99,6 +103,7 @@ namespace given_that_i_make_a_user_authenication_request
 			var mockedUserRepository = new Mock<IUserRepository>();
 			var mockedSiteConfiguration = new Mock<ISiteConfiguration>();
 			var mockedPasswordManager = new Mock<IPasswordManager>();
+			_mockedHttpResponseBase = new Mock<HttpResponseBase>();
 
 			mockedSiteConfiguration.Setup(x => x.SecureMode).Returns(false);
 
@@ -119,7 +124,7 @@ namespace given_that_i_make_a_user_authenication_request
 		[TestMethod]
 		public void i_should_get_a_successful_login_response_with_valid_credentials()
 		{
-			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "supertruesecret");
+			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "supertruesecret", _mockedHttpResponseBase.Object);
 			result.Authenticated.Should().BeTrue();
 		}
 
@@ -127,42 +132,42 @@ namespace given_that_i_make_a_user_authenication_request
 		public void i_should_get_a_correctly_populated_user_object_with_valid_credentials()
 		{
 			var email = "john37@adventure-works.com";
-			var result = _userProvider.AuthenticateUser(email, "supertruesecret");
+			var result = _userProvider.AuthenticateUser(email, "supertruesecret", _mockedHttpResponseBase.Object);
 			result.User.EmailAddress.Should().Be(email);
 		}
 
 		[TestMethod]
 		public void i_should_not_get_any_errors_for_a_successful_login_response_with_valid_credentials()
 		{
-			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "supertruesecret");
+			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "supertruesecret", _mockedHttpResponseBase.Object);
 			result.ErrorText.Should().BeNullOrEmpty();
 		}
 
 		[TestMethod]
 		public void i_should_get_an_generic_error_if_login_email_address_does_not_exist()
 		{
-			var result = _userProvider.AuthenticateUser("nouser@madeup.com", "supertruesecret");
+			var result = _userProvider.AuthenticateUser("nouser@madeup.com", "supertruesecret", _mockedHttpResponseBase.Object);
 			result.ErrorText.Should().Be(_userProvider.UsernameOrPassworIncorrectError);
 		}
 
 		[TestMethod]
 		public void i_should_get_an_authenication_failure_if_login_email_address_does_not_exist()
 		{
-			var result = _userProvider.AuthenticateUser("nouser@madeup.com", "supertruesecret");
+			var result = _userProvider.AuthenticateUser("nouser@madeup.com", "supertruesecret", _mockedHttpResponseBase.Object);
 			result.Authenticated.Should().BeFalse();
 		}
 
 		[TestMethod]
 		public void i_should_get_an_generic_error_if_login_password_is_incorrect()
 		{
-			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "superfalsesecret");
+			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "superfalsesecret", _mockedHttpResponseBase.Object);
 			result.ErrorText.Should().Be(_userProvider.UsernameOrPassworIncorrectError);
 		}
 
 		[TestMethod]
 		public void i_should_get_an_authenication_failure_if_login_password_is_incorrect()
 		{
-			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "superfalsesecret");
+			var result = _userProvider.AuthenticateUser("john37@adventure-works.com", "superfalsesecret", _mockedHttpResponseBase.Object);
 			result.Authenticated.Should().BeFalse();
 		}
 	}
