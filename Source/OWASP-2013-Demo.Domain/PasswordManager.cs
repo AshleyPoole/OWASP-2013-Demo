@@ -26,8 +26,8 @@ namespace OWASP_2013_Demo.Domain
 
 		private byte[] CreateSHA1Hash(byte[] passwordBytes, byte[] saltBytes)
 		{
-			var md5Hasher = new HMACSHA1(saltBytes);
-			var saltedHash = md5Hasher.ComputeHash(passwordBytes);
+			var sha1Hasher = new HMACSHA1(saltBytes);
+			var saltedHash = sha1Hasher.ComputeHash(passwordBytes);
 
 			return saltedHash;
 		}
