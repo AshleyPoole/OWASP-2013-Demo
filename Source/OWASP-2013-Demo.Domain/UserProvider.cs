@@ -65,7 +65,7 @@ namespace OWASP_2013_Demo.Domain
 			if (user == null)
 			{
 				authResponse.Authenticated = false;
-				authResponse.ErrorText = !_siteConfiguration.SecureMode ? NoUserExistsError : UsernameOrPassworIncorrectError;
+				authResponse.ErrorText = _siteConfiguration.SecureMode ? UsernameOrPassworIncorrectError : NoUserExistsError;
 
 				return authResponse;
 			}
