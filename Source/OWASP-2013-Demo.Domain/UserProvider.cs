@@ -66,12 +66,15 @@ namespace OWASP_2013_Demo.Domain
 			{
 				authResponse.Authenticated = false;
 				authResponse.ErrorText = !_siteConfiguration.SecureMode ? NoUserExistsError : UsernameOrPassworIncorrectError;
-			}
-			else
-			{
-				authResponse.User = user;
-				authResponse.Authenticated = _passwordManager.PasswordMatchesHash(password, user.PasswordHash, user.PasswordSalt);
 
+				return authResponse;
+			}
+
+			authResponse.User = user;
+			authResponse.Authenticated = _passwordManager.PasswordMatchesHash(password, user.PasswordHash, user.PasswordSalt);
+
+			if (authResponse.Authenticated)
+			{
 				var userData = new JavaScriptSerializer().Serialize(authResponse.User);
 
 				var ticket = new FormsAuthenticationTicket(1,
@@ -87,6 +90,10 @@ namespace OWASP_2013_Demo.Domain
 
 				// Create the cookie.
 				response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+			}
+			else
+			{
+				authResponse.ErrorText = _siteConfiguration.SecureMode ? UsernameOrPassworIncorrectError : UserPasswordIncorrectError;
 			}
 
 			return authResponse;
