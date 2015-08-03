@@ -1,4 +1,5 @@
-﻿using OWASP_2013_Demo.Interfaces.Entities;
+﻿using System.Web;
+using OWASP_2013_Demo.Interfaces.Entities;
 
 namespace OWASP_2013_Demo.Interfaces.Providers
 {
@@ -7,6 +8,8 @@ namespace OWASP_2013_Demo.Interfaces.Providers
 		string NoUserExistsError { get; }
 		string UserPasswordIncorrectError { get; }
 		string UsernameOrPassworIncorrectError { get; }
-		IAuthentication AuthenticateUser(string emailAddress, string password);
+		IUserPrincipal User { get; }
+		IAuthentication AuthenticateUser(string emailAddress, string password, HttpResponseBase response);
+		void Logoff(HttpSessionStateBase session, HttpResponseBase response);
 	}
 }
