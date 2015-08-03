@@ -17,6 +17,7 @@ namespace OWASP_2013_Demo.Web.Controllers
 		}
 
 		// GET: Authentication
+		[HttpGet]
 		[AllowAnonymous]
 		//[Route("Index/")]
 		public ActionResult Index()
@@ -26,7 +27,6 @@ namespace OWASP_2013_Demo.Web.Controllers
 			return View("Index", viewModel);
 		}
 
-		// GET: Authentication
 		[HttpPost]
 		[AllowAnonymous]
 		public ActionResult Login(LoginViewModel model)
@@ -44,7 +44,7 @@ namespace OWASP_2013_Demo.Web.Controllers
 			if (!loginResult.Authenticated)
 			{
 
-				ModelState.AddModelError("", "Invalid login attempt.");
+				ModelState.AddModelError("", loginResult.ErrorText);
 				return View("Index", model);
 			}
 
