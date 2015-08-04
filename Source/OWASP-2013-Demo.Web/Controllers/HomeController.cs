@@ -14,6 +14,7 @@ namespace OWASP_2013_Demo.Web.Controllers
 		}
 
 		// GET: Home
+		[AllowAnonymous]
 		public ActionResult Index()
 		{
 			_siteConfiguration.UpdateSecureMode(Request);
