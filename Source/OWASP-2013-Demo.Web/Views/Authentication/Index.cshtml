@@ -1,0 +1,25 @@
+﻿@model OWASP_2013_Demo.Web.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new {id = "loginForm"}))
+{
+	@*<div id="loginStatus" class="field-validation-error"></div>*@
+	if (!Html.ViewData.ModelState.IsValid)
+	{
+		<div class='@(Html.ViewData.ModelState.IsValid ? "validation-summary-valid" : "validation-summary-errors") alert alert-danger' data-valmsg-summary="true">
+			@Html.ValidationSummary()
+		</div>
+	}
+
+	<div>@Html.LabelFor(u => u.Email)</div>
+	<div>@Html.TextBoxFor(u => u.Email, new {id = "userid", @class = "input-sm"})</div>
+
+	<div>@Html.LabelFor(u => u.Password)</div>
+	<div>@Html.PasswordFor(u => u.Password, new {id = "passwordid", @class = "input-sm"})</div>
+
+	<input type="submit" value="Login"/>
+}

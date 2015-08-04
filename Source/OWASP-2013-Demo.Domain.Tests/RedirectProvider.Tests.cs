@@ -2,8 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using OWASP_2013_Demo.Domain;
-using OWASP_2013_Demo.Interfaces;
-
+using OWASP_2013_Demo.Interfaces.Entities;
 
 namespace given_that_i_make_a_redirection_request
 {
