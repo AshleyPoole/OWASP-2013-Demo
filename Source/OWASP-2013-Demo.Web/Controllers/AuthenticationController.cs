@@ -39,7 +39,7 @@ namespace OWASP_2013_Demo.Web.Controllers
 				return View("Index", model);
 			}
 
-			var loginResult = _userProvider.AuthenticateUser(model.Email, model.Password, Response);
+			var loginResult = _userProvider.AuthenticateUser(model.Email, model.Password, Response, true);
 
 			if (!loginResult.Authenticated)
 			{

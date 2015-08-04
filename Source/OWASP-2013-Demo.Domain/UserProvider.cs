@@ -23,7 +23,7 @@ namespace OWASP_2013_Demo.Domain
 		public string UserPasswordIncorrectError {
 			get { return "Error: Password is incorrect. Please try again."; }
 		}
-		public string UsernameOrPassworIncorrectError {
+		public string UsernameOrPasswordIncorrectError {
 			get { return "Error: Username or password is incorrect. Please try again."; }
 		}
 
@@ -76,7 +76,7 @@ namespace OWASP_2013_Demo.Domain
 			_siteConfiguration = siteConfiguration;
 		}
 
-		public IAuthentication AuthenticateUser(string emailAddress, string password, HttpResponseBase response)
+		public IAuthentication AuthenticateUser(string emailAddress, string password, HttpResponseBase response, bool addCookie)
 		{
 			var authResponse = new Authentication();
 			var user = _customerRepository.FetchUserByEmailAddress(emailAddress);
@@ -86,7 +86,7 @@ namespace OWASP_2013_Demo.Domain
 			if (user == null)
 			{
 				authResponse.Authenticated = false;
-				authResponse.ErrorText = !_siteConfiguration.SecureMode ? NoUserExistsError : UsernameOrPassworIncorrectError;
+				authResponse.ErrorText = _siteConfiguration.SecureMode ? UsernameOrPasswordIncorrectError : NoUserExistsError;
 
 				return authResponse;
 			}
@@ -96,25 +96,28 @@ namespace OWASP_2013_Demo.Domain
 
 			if (authResponse.Authenticated)
 			{
-				var userData = new JavaScriptSerializer().Serialize(authResponse.User);
+				if (addCookie)
+				{
+					var userData = new JavaScriptSerializer().Serialize(authResponse.User);
 
-				var ticket = new FormsAuthenticationTicket(1,
-						authResponse.User.EmailAddress,
-						DateTime.Now,
-						DateTime.Now.AddDays(30),
-						true,
-						userData,
-						FormsAuthentication.FormsCookiePath);
+					var ticket = new FormsAuthenticationTicket(1,
+							authResponse.User.EmailAddress,
+							DateTime.Now,
+							DateTime.Now.AddDays(30),
+							true,
+							userData,
+							FormsAuthentication.FormsCookiePath);
 
-				// Encrypt the ticket.
-				var encTicket = FormsAuthentication.Encrypt(ticket);
+					// Encrypt the ticket.
+					var encTicket = FormsAuthentication.Encrypt(ticket);
 
-				// Create the cookie.
-				response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+					// Create the cookie.
+					response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+				}
 			}
 			else
 			{
-				authResponse.ErrorText = _siteConfiguration.SecureMode ? UsernameOrPassworIncorrectError : UserPasswordIncorrectError;
+				authResponse.ErrorText = _siteConfiguration.SecureMode ? UsernameOrPasswordIncorrectError : UserPasswordIncorrectError;
 			}
 
 			return authResponse;
