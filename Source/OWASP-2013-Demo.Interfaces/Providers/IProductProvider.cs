@@ -1,6 +1,7 @@
 ﻿using System;
+using OWASP_2013_Demo.Interfaces.Entities;
 
-namespace OWASP_2013_Demo.Interfaces
+namespace OWASP_2013_Demo.Interfaces.Providers
 {
 	public interface IProductProvider
 	{

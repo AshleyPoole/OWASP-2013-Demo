@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using OWASP_2013_Demo.Interfaces;
+using OWASP_2013_Demo.Interfaces.Entities;
+using OWASP_2013_Demo.Interfaces.Providers;
+using OWASP_2013_Demo.Interfaces.Repositories;
 using OWASP_2013_Demo.Models;
 
 namespace OWASP_2013_Demo.Domain
@@ -48,10 +50,10 @@ namespace OWASP_2013_Demo.Domain
 
 		private static bool QueryParameterValid(string uncleansedParameter)
 		{
-		    int intOut;
+			int intOut;
 			var regex = new Regex(@"^0*[1-9][0-9]*$");
 
-            return regex.IsMatch(uncleansedParameter) && Int32.TryParse(uncleansedParameter, out intOut);
-        }
+			return regex.IsMatch(uncleansedParameter) && Int32.TryParse(uncleansedParameter, out intOut);
+		}
 	}
 }
