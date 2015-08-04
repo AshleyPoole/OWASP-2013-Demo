@@ -36,9 +36,9 @@
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
+					@Html.Partial("_LoginPartial")
 					<li id="securemode"><a class="@(Model.SecureMode ? "secure-mode" : "insecure-mode")">@(Model.SecureMode ? "Secure" : "Insecure")</a></li>
 				</ul>
-				@Html.Partial("_LoginPartial")
 			</div>
 
 		</div>

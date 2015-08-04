@@ -1,22 +1,15 @@
-﻿@*@using Microsoft.AspNet.Identity*@
-@using OWASP_2013_Demo.Domain
-@if (Request.IsAuthenticated)
+﻿@if (Request.IsAuthenticated)
 {
-	using (Html.BeginForm("Logout", "Authentication", FormMethod.Post, new { id = "logoutForm"}))
-	{
-		@Html.AntiForgeryToken()
-
-		<ul class="nav navbar-nav navbar-right">
-			<li>
-				@Html.DisplayText("Hello " + User.Identity.Name + "!")
-			</li>
-			<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-		</ul>
-	}
+	<li>
+		@Html.ActionLink("Welcome " + User.Identity.Name, "Manage", "Authentication")
+	</li>
+	<li>
+		@Html.ActionLink("Log Out", "Logout", "Authentication")
+	</li>
 }
 else
 {
-	<ul class="nav navbar-nav navbar-right">
-		<li>@Html.ActionLink("Login", "Index", "Authentication", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-	</ul>
+	<li>
+		@Html.ActionLink("Log In", "", "Authentication")
+	</li>
 }
