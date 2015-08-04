@@ -11,23 +11,18 @@ namespace OWASP_2013_Demo.Domain
 			var password = System.Text.Encoding.UTF8.GetBytes(unencryptedPassword);
 			var salt = System.Text.Encoding.UTF8.GetBytes(passwordSalt);
 
-			var newHash = Convert.ToBase64String(CreateMD5Hash(password, salt));
+			var newHash = Convert.ToBase64String(CreateSHA256Hash(unencryptedPassword, passwordSalt));
 
 			return existingHash == newHash;
 		}
 
-		private byte[] CreateMD5Hash(byte[] passwordBytes, byte[] saltBytes)
+		private byte[] CreateSHA256Hash(string password, string salt)
 		{
-			var md5Hasher = new HMACMD5(saltBytes);
-			var saltedHash = md5Hasher.ComputeHash(passwordBytes);
+			var password2 = System.Text.Encoding.UTF8.GetBytes(password);
+			var salt2 = System.Text.Encoding.UTF8.GetBytes(salt);
 
-			return saltedHash;
-		}
-
-		private byte[] CreateSHA1Hash(byte[] passwordBytes, byte[] saltBytes)
-		{
-			var md5Hasher = new HMACSHA1(saltBytes);
-			var saltedHash = md5Hasher.ComputeHash(passwordBytes);
+			var md5Hasher = new HMACSHA256(salt2);
+			var saltedHash = md5Hasher.ComputeHash(password2);
 
 			return saltedHash;
 		}
