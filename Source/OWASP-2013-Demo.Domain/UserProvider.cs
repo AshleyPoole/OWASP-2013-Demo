@@ -48,6 +48,27 @@ namespace OWASP_2013_Demo.Domain
 			}
 		}
 
+		public static IUserPrincipal UserPrincipal
+		{
+			get
+			{
+				if (HttpContext.Current.User.Identity.IsAuthenticated)
+				{
+					// The user is authenticated. Return the user from the forms auth ticket.
+					return ((MySecurityPrincipal)(HttpContext.Current.User)).User;
+				}
+				else if (HttpContext.Current.Items.Contains("User"))
+				{
+					// The user is not authenticated, but has successfully logged in.
+					return (UserPrincipal)HttpContext.Current.Items["User"];
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
+
 		public UserProvider(IUserRepository customerRepository, IPasswordManager passwordManager, ISiteConfiguration siteConfiguration)
 		{
 			_customerRepository = customerRepository;

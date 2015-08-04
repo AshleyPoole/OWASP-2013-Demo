@@ -8,11 +8,7 @@
 
 		<ul class="nav navbar-nav navbar-right">
 			<li>
-				@if (UserProvider.UserPrincipal != null)
-				{
-					@Html.DisplayText("Hello " + UserProvider.UserPrincipal.EmailAddress + "!")
-					@*<div>@UserProvider.UserPrincipal.EmailAddress</div>*@
-				}
+				@Html.DisplayText("Hello " + User.Identity.Name + "!")
 			</li>
 			<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
 		</ul>

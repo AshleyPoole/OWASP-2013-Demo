@@ -5,8 +5,11 @@ namespace OWASP_2013_Demo.Domain
 {
 	public class MySecurityPrincipal : IPrincipal
 	{
-		public MySecurityPrincipal(IIdentity identity)
+		private readonly IUserPrincipal _user;
+
+		public MySecurityPrincipal(IIdentity identity, IUserPrincipal user)
 		{
+			User = user;
 			Identity = identity;
 		}
 
@@ -17,6 +20,6 @@ namespace OWASP_2013_Demo.Domain
 			return true;
 		}
 
-		public IUserPrincipal User { get; set; }
+		public IUserPrincipal User { get; }
 	}
 }

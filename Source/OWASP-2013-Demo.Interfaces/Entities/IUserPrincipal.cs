@@ -16,5 +16,6 @@ namespace OWASP_2013_Demo.Interfaces.Entities
 		string FirstName { get; set; }
 		string MiddleName { get; set; }
 		string LastName { get; set; }
+		string Name { get; }
 	}
 }
