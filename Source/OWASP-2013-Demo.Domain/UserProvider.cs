@@ -2,11 +2,13 @@
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using AutoMapper;
 using OWASP_2013_Demo.Interfaces.Entities;
 using OWASP_2013_Demo.Interfaces.Providers;
 using OWASP_2013_Demo.Interfaces.Repositories;
 using OWASP_2013_Demo.Interfaces.Utilities;
 using OWASP_2013_Demo.Models;
+using OWASP_2013_Demo.Models.DB;
 
 namespace OWASP_2013_Demo.Domain
 {
@@ -105,7 +107,22 @@ namespace OWASP_2013_Demo.Domain
 
 		public IUserPrincipal GetUserFromQueryString(HttpRequestBase request)
 		{
-			throw new NotImplementedException();
+			var email = request.QueryString["email"];
+
+			if (string.IsNullOrEmpty(email))
+			{
+				return null;
+			}
+
+			var userDb = _customerRepository.FetchUserByEmailAddress(email) ?? new User();
+			var userPrincipal = Mapper.Map<UserPrincipal>(userDb);
+
+			return userPrincipal;
+		}
+
+		public IUserPrincipal GetUserFromSelector(HttpRequestBase request, ISiteConfiguration siteConfiguration)
+		{
+			return siteConfiguration.SecureMode ? GetUserFromCookie(request) : GetUserFromQueryString(request);
 		}
 	}
 }
