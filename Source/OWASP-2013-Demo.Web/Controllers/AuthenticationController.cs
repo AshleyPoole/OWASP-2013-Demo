@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using AutoMapper;
 using OWASP_2013_Demo.Interfaces.Entities;
 using OWASP_2013_Demo.Interfaces.Providers;
 using OWASP_2013_Demo.Web.ViewModels;
@@ -19,11 +20,23 @@ namespace OWASP_2013_Demo.Web.Controllers
 		// GET: Authentication
 		[HttpGet]
 		[AllowAnonymous]
-		//[Route("Index/")]
 		public ActionResult Index()
 		{
 			_siteConfiguration.UpdateSecureMode(Request);
-			var viewModel = new LoginViewModel() {SecureMode = _siteConfiguration.SecureMode};
+			
+			if (Request.IsAuthenticated)
+			{
+				var user = _userProvider.GetUserFromSelector(Request, _siteConfiguration);
+				var loggedInViewModel = Mapper.Map<UserViewModel>(user);
+
+				loggedInViewModel.SecureMode = _siteConfiguration.SecureMode;
+
+				return RedirectToAction("Manage", new { email = user.EmailAddress });
+
+			}
+
+			var viewModel = new LoginViewModel() { SecureMode = _siteConfiguration.SecureMode };
+
 			return View("Index", viewModel);
 		}
 
@@ -41,16 +54,16 @@ namespace OWASP_2013_Demo.Web.Controllers
 
 			var loginResult = _userProvider.AuthenticateUser(model.Email, model.Password, Response, true);
 
-			if (!loginResult.Authenticated)
+			if (loginResult.Authenticated)
 			{
-
-				ModelState.AddModelError("", loginResult.ErrorText);
-				return View("Index", model);
+				return RedirectToAction("Manage", new { email = loginResult.User.EmailAddress });
 			}
-
-			return RedirectToAction("Index", "Home");
+				
+			ModelState.AddModelError("", loginResult.ErrorText);
+			return View("Index", model);
 		}
 
+		[Authorize]
 		public ActionResult Logout()
 		{
 			_siteConfiguration.UpdateSecureMode(Request);
@@ -59,6 +72,19 @@ namespace OWASP_2013_Demo.Web.Controllers
 			_userProvider.Logoff(Session, Response);
 
 			return RedirectToAction("Index", "Home");
+		}
+
+		[Authorize]
+		public ActionResult Manage()
+		{
+			_siteConfiguration.UpdateSecureMode(Request);
+
+			var user = _userProvider.GetUserFromSelector(Request, _siteConfiguration);
+			var viewModel = Mapper.Map<UserViewModel>(user);
+
+			viewModel.SecureMode = _siteConfiguration.SecureMode;
+
+			return View(viewModel);
 		}
 	}
 }

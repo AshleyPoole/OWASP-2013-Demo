@@ -87,6 +87,10 @@
       <Project>{9D0DC2CC-EC9F-420E-BC53-096EBB83FBDC}</Project>
       <Name>OWASP-2013-Demo.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OWASP-2013-Demo.Web\OWASP-2013-Demo.Web.csproj">
+      <Project>{2F142B49-7BAA-4F42-8B50-2FB81F32058B}</Project>
+      <Name>OWASP-2013-Demo.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

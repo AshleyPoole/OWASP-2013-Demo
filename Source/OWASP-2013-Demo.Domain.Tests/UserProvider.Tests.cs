@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Collections.Specialized;
+using System.Web;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -6,6 +7,7 @@ using OWASP_2013_Demo.Domain;
 using OWASP_2013_Demo.Interfaces.Entities;
 using OWASP_2013_Demo.Interfaces.Repositories;
 using OWASP_2013_Demo.Models.DB;
+using OWASP_2013_Demo.Web;
 
 namespace given_that_i_make_a_user_authenication_request
 {
@@ -14,15 +16,18 @@ namespace given_that_i_make_a_user_authenication_request
 	{
 		private static UserProvider _userProvider;
 		private static Mock<HttpResponseBase> _mockedHttpResponseBase;
+		private static Mock<HttpRequestBase> _mockedHttpRequestBase;
+		private static Mock<ISiteConfiguration> _mockedSiteConfiguration;
 
 		[ClassInitialize]
 		public static void Setup(TestContext testContext)
 		{
 			var mockedUserRepository = new Mock<IUserRepository>();
-			var mockedSiteConfiguration = new Mock<ISiteConfiguration>();
+			_mockedSiteConfiguration = new Mock<ISiteConfiguration>();
 			_mockedHttpResponseBase = new Mock<HttpResponseBase>();
+			_mockedHttpRequestBase = new Mock<HttpRequestBase>();
 
-			mockedSiteConfiguration.Setup(x => x.SecureMode).Returns(false);
+			_mockedSiteConfiguration.Setup(x => x.SecureMode).Returns(false);
 
 			mockedUserRepository.Setup(x => x.FetchUserByEmailAddress("nouser@madeup.com"))
 				.Returns((IUser)null);
@@ -32,12 +37,29 @@ namespace given_that_i_make_a_user_authenication_request
 				{
 					EmailAddress = "margaret0@adventure-works.com",
 					PasswordHash = "HyeF+GbkROa/eaUyYgVqCm8zMdNn/AEIzOnd+luTsgQ=",
-					PasswordSalt = "i2U3DxA="
+					PasswordSalt = "i2U3DxA=",
+					FirstName = "Margaret",
+					MiddleName = "J",
+					LastName = "Smith",
+					BusinessEntityID = 303,
+					CustomerID = 29490,
+					PersonID = 303,
+					Title = "Ms."
 				});
+
+			mockedUserRepository.Setup(x => x.FetchUserByEmailAddress("brenda18@adventure-works.com"))
+				.Returns(new User()
+				{
+					EmailAddress = "brenda18@adventure-works.com",
+					FirstName = "Brenda",
+					LastName = "Garcia"
+				});
+
+			AutoMapperConfig.RegisterMapping();
 
 			// In the future maybe mock PasswordManager too.
 			_userProvider = new UserProvider(mockedUserRepository.Object, new PasswordManager(), 
-				mockedSiteConfiguration.Object);
+				_mockedSiteConfiguration.Object);
 		}
 
 		[TestMethod]
@@ -88,6 +110,32 @@ namespace given_that_i_make_a_user_authenication_request
 			var result = _userProvider.AuthenticateUser("margaret0@adventure-works.com", "superfalsesecret", _mockedHttpResponseBase.Object, false);
 			result.Authenticated.Should().BeFalse();
 		}
+
+		[TestMethod]
+		public void i_should_able_to_get_the_active_user_from_email_address_on_querystring()
+		{
+			const string emailAddress = "margaret0@adventure-works.com";
+
+			// I don't like doing setup work in test methods but this seems to the the only way for quickness
+			_mockedHttpRequestBase.Setup(x => x.QueryString)
+				.Returns(new NameValueCollection {{"email", emailAddress}});
+
+			var result = _userProvider.GetUserFromSelector(_mockedHttpRequestBase.Object, _mockedSiteConfiguration.Object);
+			result.EmailAddress.Should().Be(emailAddress);
+		}
+
+		[TestMethod]
+		public void i_should_able_to_get_the_active_user_from_email_address_on_querystring_for_another_user()
+		{
+			const string emailAddress = "brenda18@adventure-works.com";
+
+			// I don't like doing setup work in test methods but this seems to the the only way for quickness
+			_mockedHttpRequestBase.Setup(x => x.QueryString)
+				.Returns(new NameValueCollection { { "email", emailAddress } });
+
+			var result = _userProvider.GetUserFromSelector(_mockedHttpRequestBase.Object, _mockedSiteConfiguration.Object);
+			result.EmailAddress.Should().Be(emailAddress);
+		}
 	}
 
 	[TestClass]
@@ -95,16 +143,19 @@ namespace given_that_i_make_a_user_authenication_request
 	{
 		private static UserProvider _userProvider;
 		private static Mock<HttpResponseBase> _mockedHttpResponseBase;
+		private static Mock<HttpRequestBase> _mockedHttpRequestBase;
+		private static Mock<ISiteConfiguration> _mockedSiteConfiguration;
 
 		[ClassInitialize]
 		public static void Setup(TestContext testContext)
 		{
 			var mockedUserRepository = new Mock<IUserRepository>();
-			var mockedSiteConfiguration = new Mock<ISiteConfiguration>();
 			var passwordManager = new PasswordManager();
+			_mockedSiteConfiguration = new Mock<ISiteConfiguration>();
 			_mockedHttpResponseBase = new Mock<HttpResponseBase>();
+			_mockedHttpRequestBase = new Mock<HttpRequestBase>();
 
-			mockedSiteConfiguration.Setup(x => x.SecureMode).Returns(true);
+			_mockedSiteConfiguration.Setup(x => x.SecureMode).Returns(true);
 
 			mockedUserRepository.Setup(x => x.FetchUserByEmailAddress("nouser@madeup.com"))
 				.Returns((IUser)null);
@@ -117,7 +168,9 @@ namespace given_that_i_make_a_user_authenication_request
 					PasswordSalt = "i2U3DxA="
 				});
 
-			_userProvider = new UserProvider(mockedUserRepository.Object, passwordManager, mockedSiteConfiguration.Object);
+			AutoMapperConfig.RegisterMapping();
+
+			_userProvider = new UserProvider(mockedUserRepository.Object, passwordManager, _mockedSiteConfiguration.Object);
 		}
 
 		[TestMethod]
@@ -168,6 +221,22 @@ namespace given_that_i_make_a_user_authenication_request
 		{
 			var result = _userProvider.AuthenticateUser("margaret0@adventure-works.com", "superfalsesecret", _mockedHttpResponseBase.Object, false);
 			result.Authenticated.Should().BeFalse();
+		}
+
+		[TestMethod]
+		public void i_should_not_able_to_get_information_for_another_user_using_their_email_address_on_querystring()
+		{
+			const string emailAddress = "brenda18@adventure-works.com";
+
+			// I don't like doing setup work in test methods but this seems to the the only way for quickness
+			_mockedHttpRequestBase.Setup(x => x.QueryString)
+				.Returns(new NameValueCollection { { "email", emailAddress } });
+
+			var result = _userProvider.GetUserFromSelector(_mockedHttpRequestBase.Object, _mockedSiteConfiguration.Object);
+
+			// As I'm not mocking the users cookie null is expected for this test. As long as it is null or not the value in
+			// emailAddress this is a successful test
+			result.Should().BeNull();
 		}
 	}
 }

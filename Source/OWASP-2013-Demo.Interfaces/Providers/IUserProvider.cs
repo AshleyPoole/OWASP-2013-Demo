@@ -8,8 +8,10 @@ namespace OWASP_2013_Demo.Interfaces.Providers
 		string NoUserExistsError { get; }
 		string UserPasswordIncorrectError { get; }
 		string UsernameOrPasswordIncorrectError { get; }
-		IUserPrincipal User { get; }
 		IAuthentication AuthenticateUser(string emailAddress, string password, HttpResponseBase response, bool addCookie);
 		void Logoff(HttpSessionStateBase session, HttpResponseBase response);
+		IUserPrincipal GetUserFromCookie(HttpRequestBase request);
+		IUserPrincipal GetUserFromQueryString(HttpRequestBase request);
+		IUserPrincipal GetUserFromSelector(HttpRequestBase request, ISiteConfiguration siteConfiguration);
 	}
 }

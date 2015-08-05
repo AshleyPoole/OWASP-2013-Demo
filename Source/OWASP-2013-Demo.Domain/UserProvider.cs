@@ -2,11 +2,13 @@
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using AutoMapper;
 using OWASP_2013_Demo.Interfaces.Entities;
 using OWASP_2013_Demo.Interfaces.Providers;
 using OWASP_2013_Demo.Interfaces.Repositories;
 using OWASP_2013_Demo.Interfaces.Utilities;
 using OWASP_2013_Demo.Models;
+using OWASP_2013_Demo.Models.DB;
 
 namespace OWASP_2013_Demo.Domain
 {
@@ -25,48 +27,6 @@ namespace OWASP_2013_Demo.Domain
 		}
 		public string UsernameOrPasswordIncorrectError {
 			get { return "Error: Username or password is incorrect. Please try again."; }
-		}
-
-		public IUserPrincipal User
-		{
-			get
-			{
-				if (HttpContext.Current.User.Identity.IsAuthenticated)
-				{
-					// The user is authenticated. Return the user from the forms auth ticket.
-					return ((MySecurityPrincipal)(HttpContext.Current.User)).User;
-				}
-				else if (HttpContext.Current.Items.Contains("User"))
-				{
-					// The user is not authenticated, but has successfully logged in.
-					return (UserPrincipal)HttpContext.Current.Items["User"];
-				}
-				else
-				{
-					return null;
-				}
-			}
-		}
-
-		public static IUserPrincipal UserPrincipal
-		{
-			get
-			{
-				if (HttpContext.Current.User.Identity.IsAuthenticated)
-				{
-					// The user is authenticated. Return the user from the forms auth ticket.
-					return ((MySecurityPrincipal)(HttpContext.Current.User)).User;
-				}
-				else if (HttpContext.Current.Items.Contains("User"))
-				{
-					// The user is not authenticated, but has successfully logged in.
-					return (UserPrincipal)HttpContext.Current.Items["User"];
-				}
-				else
-				{
-					return null;
-				}
-			}
 		}
 
 		public UserProvider(IUserRepository customerRepository, IPasswordManager passwordManager, ISiteConfiguration siteConfiguration)
@@ -134,6 +94,44 @@ namespace OWASP_2013_Demo.Domain
 			// Clear authentication cookie.
 			var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, "") {Expires = DateTime.Now.AddYears(-1)};
 			response.Cookies.Add(cookie);
+		}
+
+		public IUserPrincipal GetUserFromCookie(HttpRequestBase request)
+		{
+			UserPrincipal userData = null;
+
+			try
+			{
+				var authCookie = request.Cookies[FormsAuthentication.FormsCookieName];
+				var ticket = FormsAuthentication.Decrypt(authCookie.Value);
+				userData = new JavaScriptSerializer().Deserialize<UserPrincipal>(ticket.UserData);
+			}
+			catch (Exception)
+			{
+				// This condition is expected if the cookie is missing. Simply allow null to be returned.
+			}
+
+			return userData;
+		}
+
+		public IUserPrincipal GetUserFromQueryString(HttpRequestBase request)
+		{
+			var email = request.QueryString["email"];
+
+			if (string.IsNullOrEmpty(email))
+			{
+				return null;
+			}
+
+			var userDb = _customerRepository.FetchUserByEmailAddress(email) ?? new User();
+			var userPrincipal = Mapper.Map<UserPrincipal>(userDb);
+
+			return userPrincipal;
+		}
+
+		public IUserPrincipal GetUserFromSelector(HttpRequestBase request, ISiteConfiguration siteConfiguration)
+		{
+			return siteConfiguration.SecureMode ? GetUserFromCookie(request) : GetUserFromQueryString(request);
 		}
 	}
 }
