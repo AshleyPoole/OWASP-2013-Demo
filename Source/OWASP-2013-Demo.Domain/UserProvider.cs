@@ -98,10 +98,19 @@ namespace OWASP_2013_Demo.Domain
 
 		public IUserPrincipal GetUserFromCookie(HttpRequestBase request)
 		{
-			var authCookie = request.Cookies[FormsAuthentication.FormsCookieName];
-			var ticket = FormsAuthentication.Decrypt(authCookie.Value);
+			UserPrincipal userData = null;
 
-			var userData = new JavaScriptSerializer().Deserialize<UserPrincipal>(ticket.UserData);
+			try
+			{
+				var authCookie = request.Cookies[FormsAuthentication.FormsCookieName];
+				var ticket = FormsAuthentication.Decrypt(authCookie.Value);
+				userData = new JavaScriptSerializer().Deserialize<UserPrincipal>(ticket.UserData);
+			}
+			catch (Exception)
+			{
+				// This condition is expected if the cookie is missing. Simply allow null to be returned.
+			}
+
 			return userData;
 		}
 
