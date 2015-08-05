@@ -13,13 +13,13 @@ namespace OWASP_2013_Demo.Domain
 			Identity = identity;
 		}
 
-		public IIdentity Identity { get; }
+		public IIdentity Identity { get; set; }
 
 		public bool IsInRole(string role)
 		{
 			return true;
 		}
 
-		public IUserPrincipal User { get; }
+		public IUserPrincipal User { get; set; }
 	}
 }
