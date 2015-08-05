@@ -23,9 +23,21 @@ namespace OWASP_2013_Demo.Web.Controllers
 		public ActionResult Index()
 		{
 			_siteConfiguration.UpdateSecureMode(Request);
-			var viewModel = new LoginViewModel() {SecureMode = _siteConfiguration.SecureMode};
+			
+			if (Request.IsAuthenticated)
+			{
+				var user = _userProvider.GetUserFromSelector(Request, _siteConfiguration);
+				var loggedInViewModel = Mapper.Map<UserViewModel>(user);
 
-			return Request.IsAuthenticated ? (ActionResult) RedirectToAction("Manage") : View("Index", viewModel);
+				loggedInViewModel.SecureMode = _siteConfiguration.SecureMode;
+
+				return RedirectToAction("Manage", new { email = user.EmailAddress });
+
+			}
+
+			var viewModel = new LoginViewModel() { SecureMode = _siteConfiguration.SecureMode };
+
+			return View("Index", viewModel);
 		}
 
 		[HttpPost]
@@ -42,14 +54,13 @@ namespace OWASP_2013_Demo.Web.Controllers
 
 			var loginResult = _userProvider.AuthenticateUser(model.Email, model.Password, Response, true);
 
-			if (!loginResult.Authenticated)
+			if (loginResult.Authenticated)
 			{
-
-				ModelState.AddModelError("", loginResult.ErrorText);
-				return View("Index", model);
+				return RedirectToAction("Manage", new { email = loginResult.User.EmailAddress });
 			}
-
-			return RedirectToAction("Manage");
+				
+			ModelState.AddModelError("", loginResult.ErrorText);
+			return View("Index", model);
 		}
 
 		[Authorize]
@@ -68,7 +79,7 @@ namespace OWASP_2013_Demo.Web.Controllers
 		{
 			_siteConfiguration.UpdateSecureMode(Request);
 
-			var user = _userProvider.GetUserFromCookie(Request);
+			var user = _userProvider.GetUserFromSelector(Request, _siteConfiguration);
 			var viewModel = Mapper.Map<UserViewModel>(user);
 
 			viewModel.SecureMode = _siteConfiguration.SecureMode;
