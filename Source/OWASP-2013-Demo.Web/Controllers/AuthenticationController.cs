@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using AutoMapper;
 using OWASP_2013_Demo.Interfaces.Entities;
 using OWASP_2013_Demo.Interfaces.Providers;
 using OWASP_2013_Demo.Web.ViewModels;
@@ -19,12 +20,12 @@ namespace OWASP_2013_Demo.Web.Controllers
 		// GET: Authentication
 		[HttpGet]
 		[AllowAnonymous]
-		//[Route("Index/")]
 		public ActionResult Index()
 		{
 			_siteConfiguration.UpdateSecureMode(Request);
 			var viewModel = new LoginViewModel() {SecureMode = _siteConfiguration.SecureMode};
-			return View("Index", viewModel);
+
+			return Request.IsAuthenticated ? (ActionResult) RedirectToAction("Manage") : View("Index", viewModel);
 		}
 
 		[HttpPost]
@@ -48,9 +49,10 @@ namespace OWASP_2013_Demo.Web.Controllers
 				return View("Index", model);
 			}
 
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction("Manage");
 		}
 
+		[Authorize]
 		public ActionResult Logout()
 		{
 			_siteConfiguration.UpdateSecureMode(Request);
@@ -59,6 +61,19 @@ namespace OWASP_2013_Demo.Web.Controllers
 			_userProvider.Logoff(Session, Response);
 
 			return RedirectToAction("Index", "Home");
+		}
+
+		[Authorize]
+		public ActionResult Manage()
+		{
+			_siteConfiguration.UpdateSecureMode(Request);
+
+			var user = _userProvider.GetUserFromCookie(Request);
+			var viewModel = Mapper.Map<UserViewModel>(user);
+
+			viewModel.SecureMode = _siteConfiguration.SecureMode;
+
+			return View(viewModel);
 		}
 	}
 }

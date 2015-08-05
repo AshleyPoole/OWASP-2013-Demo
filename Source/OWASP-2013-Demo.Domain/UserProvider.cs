@@ -27,48 +27,6 @@ namespace OWASP_2013_Demo.Domain
 			get { return "Error: Username or password is incorrect. Please try again."; }
 		}
 
-		public IUserPrincipal User
-		{
-			get
-			{
-				if (HttpContext.Current.User.Identity.IsAuthenticated)
-				{
-					// The user is authenticated. Return the user from the forms auth ticket.
-					return ((MySecurityPrincipal)(HttpContext.Current.User)).User;
-				}
-				else if (HttpContext.Current.Items.Contains("User"))
-				{
-					// The user is not authenticated, but has successfully logged in.
-					return (UserPrincipal)HttpContext.Current.Items["User"];
-				}
-				else
-				{
-					return null;
-				}
-			}
-		}
-
-		public static IUserPrincipal UserPrincipal
-		{
-			get
-			{
-				if (HttpContext.Current.User.Identity.IsAuthenticated)
-				{
-					// The user is authenticated. Return the user from the forms auth ticket.
-					return ((MySecurityPrincipal)(HttpContext.Current.User)).User;
-				}
-				else if (HttpContext.Current.Items.Contains("User"))
-				{
-					// The user is not authenticated, but has successfully logged in.
-					return (UserPrincipal)HttpContext.Current.Items["User"];
-				}
-				else
-				{
-					return null;
-				}
-			}
-		}
-
 		public UserProvider(IUserRepository customerRepository, IPasswordManager passwordManager, ISiteConfiguration siteConfiguration)
 		{
 			_customerRepository = customerRepository;
@@ -134,6 +92,20 @@ namespace OWASP_2013_Demo.Domain
 			// Clear authentication cookie.
 			var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, "") {Expires = DateTime.Now.AddYears(-1)};
 			response.Cookies.Add(cookie);
+		}
+
+		public IUserPrincipal GetUserFromCookie(HttpRequestBase request)
+		{
+			var authCookie = request.Cookies[FormsAuthentication.FormsCookieName];
+			var ticket = FormsAuthentication.Decrypt(authCookie.Value);
+
+			var userData = new JavaScriptSerializer().Deserialize<UserPrincipal>(ticket.UserData);
+			return userData;
+		}
+
+		public IUserPrincipal GetUserFromQueryString(HttpRequestBase request)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
