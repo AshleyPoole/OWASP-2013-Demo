@@ -18,16 +18,11 @@ namespace OWASP_2013_Demo.Domain
 		private readonly ISiteConfiguration _siteConfiguration;
 		private readonly IPasswordManager _passwordManager;
 
-		public string NoUserExistsError
-		{
-			get { return "Error: No user exists with that email address."; }
-		}
-		public string UserPasswordIncorrectError {
-			get { return "Error: Password is incorrect. Please try again."; }
-		}
-		public string UsernameOrPasswordIncorrectError {
-			get { return "Error: Username or password is incorrect. Please try again."; }
-		}
+		public string NoUserExistsError => "Error: No user exists with that email address.";
+
+		public string UserPasswordIncorrectError => "Error: Password is incorrect. Please try again.";
+
+		public string UsernameOrPasswordIncorrectError => "Error: Username or password is incorrect. Please try again.";
 
 		public UserProvider(IUserRepository customerRepository, IPasswordManager passwordManager, ISiteConfiguration siteConfiguration)
 		{
@@ -51,17 +46,19 @@ namespace OWASP_2013_Demo.Domain
 				return authResponse;
 			}
 
-			authResponse.User = user;
+			// Converting user db to user prinicpal
+			authResponse.UserPrincipal = Mapper.Map<UserPrincipal>(user);
 			authResponse.Authenticated = _passwordManager.PasswordMatchesHash(password, user.PasswordHash, user.PasswordSalt);
 
 			if (authResponse.Authenticated)
 			{
 				if (addCookie)
 				{
-					var userData = new JavaScriptSerializer().Serialize(authResponse.User);
+					// Serialising the UserPrincipal object rather than user as user contains extra information relating to passwords
+					var userData = new JavaScriptSerializer().Serialize(authResponse.UserPrincipal);
 
 					var ticket = new FormsAuthenticationTicket(1,
-							authResponse.User.EmailAddress,
+							authResponse.UserPrincipal.EmailAddress,
 							DateTime.Now,
 							DateTime.Now.AddDays(30),
 							true,
@@ -96,7 +93,7 @@ namespace OWASP_2013_Demo.Domain
 			response.Cookies.Add(cookie);
 		}
 
-		public IUserPrincipal GetUserFromCookie(HttpRequestBase request)
+		private IUserPrincipal GetUserFromCookie(HttpRequestBase request)
 		{
 			UserPrincipal userData = null;
 
@@ -114,8 +111,9 @@ namespace OWASP_2013_Demo.Domain
 			return userData;
 		}
 
-		public IUserPrincipal GetUserFromQueryString(HttpRequestBase request)
+		private IUserPrincipal GetUserFromQueryString(HttpRequestBase request)
 		{
+			// This should be the same to grab session id or a business entity id
 			var email = request.QueryString["email"];
 
 			if (string.IsNullOrEmpty(email))
