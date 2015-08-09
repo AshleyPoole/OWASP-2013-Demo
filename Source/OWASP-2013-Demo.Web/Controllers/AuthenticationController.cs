@@ -56,7 +56,7 @@ namespace OWASP_2013_Demo.Web.Controllers
 
 			if (loginResult.Authenticated)
 			{
-				return RedirectToAction("Manage", new { email = loginResult.User.EmailAddress });
+				return RedirectToAction("Manage", new { email = loginResult.UserPrincipal.EmailAddress });
 			}
 				
 			ModelState.AddModelError("", loginResult.ErrorText);

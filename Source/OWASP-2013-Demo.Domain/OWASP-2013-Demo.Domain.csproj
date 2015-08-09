@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PasswordManager.cs" />
-    <Compile Include="SecurityPrincipal.cs" />
     <Compile Include="UserProvider.cs" />
     <Compile Include="ProductProvider.cs" />
     <Compile Include="RedirectProvider.cs" />

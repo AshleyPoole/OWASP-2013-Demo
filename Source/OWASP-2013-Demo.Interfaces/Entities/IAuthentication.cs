@@ -2,7 +2,7 @@
 {
 	public interface IAuthentication
 	{
-		IUser User { get; set; }
+		IUserPrincipal UserPrincipal { get; set; }
 		bool Authenticated { get; set; }
 		string ErrorText { get; set; }
 	}

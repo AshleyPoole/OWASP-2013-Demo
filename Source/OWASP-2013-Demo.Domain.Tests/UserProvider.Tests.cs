@@ -66,7 +66,7 @@ namespace given_that_i_make_a_user_authenication_request
 		public void i_should_get_a_successful_login_response_with_a_user_object_using_valid_credentials()
 		{
 			var result = _userProvider.AuthenticateUser("margaret0@adventure-works.com", "password", _mockedHttpResponseBase.Object, false);
-			result.User.Should().NotBeNull();
+			result.UserPrincipal.Should().NotBeNull();
 		}
 
 		[TestMethod]
@@ -185,7 +185,7 @@ namespace given_that_i_make_a_user_authenication_request
 		{
 			var email = "margaret0@adventure-works.com";
 			var result = _userProvider.AuthenticateUser(email, "supertruesecret", _mockedHttpResponseBase.Object, false);
-			result.User.EmailAddress.Should().Be(email);
+			result.UserPrincipal.EmailAddress.Should().Be(email);
 		}
 
 		[TestMethod]
