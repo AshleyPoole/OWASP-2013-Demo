@@ -1,0 +1,14 @@
+﻿@{
+	ViewBag.Title = "Account Management";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Super Secure™ Account Management</h2>
+<p>You are currently logged in as <strong>@ViewBag.Username</strong></p>
+
+<ul>
+	@foreach (var linkText in new[] { "Transfer Funds", "Update Payment Methods", "View Order History", "Change Password", "Delete Account" })
+	{
+		<li><a href="#">@linkText</a></li>
+	}
+</ul>

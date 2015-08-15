@@ -40,11 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\IAuthentication.cs" />
-    <Compile Include="Entities\IUser.cs" />
-    <Compile Include="Entities\IUserPrincipal.cs" />
-    <Compile Include="Providers\IUserProvider.cs" />
-    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Entities\IProduct.cs" />
     <Compile Include="Providers\IProductProvider.cs" />
     <Compile Include="Repositories\IProductRepository.cs" />
@@ -55,7 +50,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\IPasswordManager.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

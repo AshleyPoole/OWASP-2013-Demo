@@ -1,0 +1,42 @@
+﻿@model OWASP_2013_Demo.Web.ViewModels.RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorText))
+{
+	<div class="alert alert-danger">@Model.ErrorText<br/>
+	@Html.ValidationSummary()</div>
+	<p></p>
+}
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+	<div class="form-group">
+		<label>Username</label>
+		@Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+	</div>
+
+	<div class="form-group">
+		<label>Password</label>
+		@Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+	</div>
+
+	<div class="form-group">
+		<label>Password (again)</label>
+		@Html.PasswordFor(m => m.VerifyPassword, new { @class = "form-control" })
+	</div>
+
+	<p><small>Due to security concerns, one of our specially trained high security ninja lawyers will arrive within 24 hours to gather the rest of the required identification materials in person&mdash;the most secure form of interaction.</small></p>
+
+	<div class="checkbox">
+		<label><input type="checkbox" checked onchange="$(this).prop('checked','checked')"/> I agree to all the legal stuff.</label>
+	</div>
+	
+	@Html.AntiForgeryToken()
+
+	<button type="submit" class="btn btn-default btn-primary btn-lg">Sign up securely™</button>
+}
