@@ -6,12 +6,15 @@ using System.Web;
 
 namespace OWASP_2013_Demo.Web.ViewModels
 {
-	public class LoginViewModel : BaseViewModel
+	public class RegisterViewModel : BaseViewModel
 	{
 		[Required]
 		public string Username { get; set; }
 
 		[Required]
 		public string Password { get; set; }
+
+		[Required]
+		public string VerifyPassword { get; set; }
 	}
 }

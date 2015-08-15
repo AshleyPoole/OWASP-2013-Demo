@@ -1,0 +1,47 @@
+﻿@model OWASP_2013_Demo.Web.ViewModels.SearchViewModel
+
+@{
+    ViewBag.Title = "Search Results for " + Model.Query;
+}
+
+<div class="row">
+	<div class="col-lg-12">
+		<h2>Search Results for "@Html.Raw(Model.Query)"</h2>
+
+		<p>
+			Found @Model.SearchResults.Count() results matching your query.
+			<a href=/search?query=@Model.Query>Share these results. <span class="glyphicon glyphicon-share"></span></a>
+		</p>
+
+		<hr />
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+
+		@if (Model.SearchResults.Any())
+		{
+			foreach (var result in Model.SearchResults)
+			{
+				<p>
+					<strong><a href="@result.Url">@result.Title</a></strong>
+					<br />@result.Description
+					<br />
+					@for (int i = 0; i < result.Relevance; i++)
+					{
+						<span class="glyphicon glyphicon-star"></span>
+					}
+					@for (int i = 0; i < 5 - result.Relevance; i++)
+					{
+						<span class="glyphicon glyphicon-star-empty"></span>
+					}
+				</p>
+			}
+		}
+		else
+		{
+			<div class="alert alert-warning"><span class="glyphicon glyphicon-alert"></span> Your search terms did not produce any results.</div>
+		}
+	</div>
+</div>
