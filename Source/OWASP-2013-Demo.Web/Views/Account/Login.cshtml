@@ -13,18 +13,25 @@
 <div class="row">
 	<div class="col-lg-4">
 		<p>Sign in to continue</p>
+		@if (!string.IsNullOrEmpty(Model.ErrorText))
+		{
+			<div class="alert alert-danger">
+				@Model.ErrorText<br />
+				@Html.ValidationSummary()
+			</div>
+			<p></p>
+		}
+
 		@using (Html.BeginForm("Login", "Account"))
 		{
 			<div class="form-group">
 				<label for="@Html.NameFor(m => m.Username)">Username</label>
 				<input type="text" class="form-control" name="@Html.NameFor(m => m.Username)" autocomplete="off"/>
-				@Html.ValidationMessageFor(m => m.Username, null, new { @class = "text-danger" }, "span")
 			</div>
 
 			<div class="form-group">
 				<label for="@Html.NameFor(m => m.Password)">Password</label>
 				<input type="password" class="form-control" name="@Html.NameFor(m => m.Password)" autocomplete="off"/>
-				@Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" }, "span")
 			</div>
 
 			@Html.AntiForgeryToken()

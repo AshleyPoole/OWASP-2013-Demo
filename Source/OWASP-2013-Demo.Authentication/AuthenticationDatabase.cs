@@ -25,7 +25,15 @@ namespace OWASP_2013_Demo.Authentication
 
 	public class InMemoryAuthenticationDatabase : IAuthenticationDatabase
 	{
-		private Dictionary<string,UserCredentials> credentialStore = new Dictionary<string, UserCredentials>();
+		private Dictionary<string,UserCredentials> credentialStore;
+
+		private string backupFileLocation;
+
+		public InMemoryAuthenticationDatabase()
+		{
+			credentialStore = new Dictionary<string, UserCredentials>();
+			backupFileLocation = HttpContext.Current.Server.MapPath("~/App_Data/passwords.bak");
+		}
 
 		public UserCredentials GetUserCredentialsByUsername(string username)
 		{
@@ -42,8 +50,6 @@ namespace OWASP_2013_Demo.Authentication
 		public void SaveUserCredentials(UserCredentials credentials)
 		{
 			credentialStore[credentials.Username.ToLower()] = CopyCredentials(credentials);
-
-			var backupFileLocation = HttpContext.Current.Server.MapPath("~/App_Data/passwords.bak");
 			File.AppendAllText(backupFileLocation, credentials.Username + "\t" + credentials.PasswordValidationString + "\r\n");
 		}
 
