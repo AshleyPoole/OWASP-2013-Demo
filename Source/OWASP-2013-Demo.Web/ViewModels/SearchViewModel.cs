@@ -8,5 +8,7 @@ namespace OWASP_2013_Demo.Web.ViewModels
 		public string Query { get; set; }
 
 		public IEnumerable<SearchResult> SearchResults { get; set; }
+
+		public IEnumerable<string> RecentQueries { get; set; }
 	}
 }

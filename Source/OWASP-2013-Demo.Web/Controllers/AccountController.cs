@@ -69,7 +69,7 @@ namespace OWASP_2013_Demo.Web.Controllers
 			}
 			else
 			{
-				return View(new LoginViewModel() { Username = postModel.Username });
+				return View(new LoginViewModel() { Username = postModel.Username, ErrorText = "Some fields are invalid:" });
 			}
 
 		}
