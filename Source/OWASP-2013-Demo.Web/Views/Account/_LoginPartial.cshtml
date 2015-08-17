@@ -1,0 +1,15 @@
+﻿@if (ViewBag.IsAuthenticated)
+{
+	<li>
+		@Html.ActionLink("Welcome " + (ViewBag.AuthenticatedUsername as string), "Manage", "Account")
+	</li>
+	<li>
+		<a href="/account/logout">Log Out <span class="glyphicon glyphicon-log-out"></span></a>
+	</li>
+}
+else
+{
+	<li>
+		<a href="/account/login">Log In <span class="glyphicon glyphicon-log-in"></span></a>
+	</li>
+}

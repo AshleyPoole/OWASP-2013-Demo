@@ -1,0 +1,76 @@
+﻿Encryption has long been used by military and governments to facilitate secret communication.
+For example, the Computer Security Institute reported that in 2007, 71% of companies surveyed utilized encryption for some of their data in transit, and 53% utilized encryption for some of their data in storage.
+Encryption, by itself, can protect the confidentiality of messages, but other techniques are still needed to protect the integrity and authenticity of a message; for example, verification of a message authentication code (MAC) or a digital signature.
+Time travel is the concept of movement (often by a human) between different points in time in a manner analogous to moving between different points in space, typically using a hypothetical device known as a time machine.
+Time travel is a recognized concept in philosophy and fiction, but travel to an arbitrary point in time has a very limited support in theoretical physics, usually only in conjunction with quantum mechanics or Einstein–Rosen bridges.
+For example, travel into the future (not the past) via time dilation is a well-proven phenomenon in physics (relativity) and is routinely experienced by astronauts, but only by several milliseconds, as they can verify by checking a precise watch against a clock that remained on Earth.
+Time dilation by years into the future could be done by taking a round trip during which you move at speeds approaching that of light, but this is not currently technologically feasible for manned vehicles.
+The Time Machine, by H. G. Wells, was instrumental in moving the concept of time travel to the forefront of the public imagination, but the earlier short story "The Clock That Went Backward", by Edward Page Mitchell, involves a clock that, by means unspecified, allows three men to travel backward in time.
+Some theories, most notably special and general relativity, suggest that suitable geometries of spacetime or specific types of motion in space might allow time travel into the past and future if these geometries or motions were possible.
+In technical papers, physicists generally avoid the commonplace language of "moving" or "traveling" through time ("movement" normally refers only to a change in spatial position as the time coordinate is varied), and instead discuss the possibility of closed timelike curves, which are worldlines that form closed loops in spacetime, allowing objects to return to their own past.
+There are known to be solutions to the equations of general relativity that describe spacetimes which contain closed timelike curves (such as Gödel spacetime), but the physical plausibility of these solutions is uncertain.
+Serious financial damage has been caused by security breaches, but because there is no standard model for estimating the cost of an incident, the only data available is that which is made public by the organizations involved.
+Several computer security consulting firms produce estimates of total worldwide losses attributable to virus and worm attacks and to hostile digital acts in general.
+The 2003 loss estimates by these firms range from $13 billion (worms and viruses only) to $226 billion (for all forms of covert attacks).
+The reliability of these estimates is often challenged; the underlying methodology is basically anecdotal.
+However, reasonable estimates of the financial cost of security breaches can actually help organizations make rational investment decisions.
+According to the classic Gordon-Loeb Model analyzing the optimal investment level in information security, one can conclude that the amount a firm spends to protect information should generally be only a small fraction of the expected loss (i.e., the expected value of the loss resulting from a cyber/information security breach).
+In many countries, the most commonly used vehicle for road transport is a utility bicycle.
+These have frames with relaxed geometry, protecting the rider from shocks of the road and easing steering at low speeds.
+Utility bicycles tend to be equipped with accessories such as mudguards, pannier racks and lights which extends their usefulness on a daily basis.
+As the bicycle is so effective as a means of transportation various companies have developed methods of carrying anything from the weekly shop to children on bicycles.
+Certain countries around the world rely heavily on bicycles and their culture has developed around the bicycle as a primary form of transport.
+In Europe Belgium and the Netherlands are two of the biggest advocates and users of bicycles as a method of day to day transportation.
+Road bikes tend to have a more upright shape and a shorter wheelbase, which make the bike more mobile but harder to ride slowly.
+The design, coupled with low or dropped handlebars, requires the rider to bend forward more, utilizing stronger muscles (particularly the gluteus maximus) and reducing air resistance at high speed.
+The price of a new bicycle can range from US$50 to more than US$20,000 (the highest priced bike in the world is the custom Madone by Damien Hirst, sold at $500,000 USD), depending on quality, type and weight (the most exotic road bicycles can weigh as little as 3.2 kg (7 lb)).
+UCI regulations stipulates a legal race bike cannot weigh less than 6.8 kg (14.99 lbs). Being measured for a bike and taking it for a test ride are recommended before buying.
+The drivetrain components of the bike should also be considered. 
+A middle grade dérailleur is sufficient for a beginner, although many utility bikes come equipped with hub gears. 
+If the rider plans a significant amount of hillclimbing, a triple-crank (three chainrings) front gear system may be preferred. 
+Otherwise, the relatively lighter and less expensive two chainrings may be better. Much simpler fixed wheel bikes are also available.
+Many road bikes along with mountain bikes include clipless pedals to which special shoes attach, via a cleat, permitting the rider to pull on the pedals as well as push. 
+Other possible accessories for the bicycle include front and rear lights, bells or horns, child carrying seats, cycling computers with GPS, locks, bar tape, fenders (mud-guards), baggage racks, baggage carriers and pannier bags, water bottles and bottle cages.
+For basic maintenance and repairs, cyclists can choose to carry a pump (or a CO2 cartridge), a puncture repair kit, a spare inner tube, and tire levers. 
+Cycling can be more efficient and comfortable with special shoes, gloves, and shorts.
+In wet weather, riding can be more tolerable with waterproof clothes, such as cape, jacket, trousers (pants) and overshoes.
+Items legally required in some jurisdictions, or voluntarily adopted for safety reasons, include bicycle helmets, generator or battery operated lights, reflectors, and audible signalling devices such as a bell or horn. 
+Extras include studded tires and a bicycle computer.
+Bikes can also be heavily customized, with different seat designs and handle bars, for example.
+A bicycle, often called a bike or cycle, is a human-powered, pedal-driven, single-track vehicle, having two wheels attached to a frame, one behind the other.
+A bicycle rider is called a cyclist, or bicyclist.
+Bicycles were introduced in the 19th century in Europe and, as of 2003, more than a billion have been produced worldwide, twice as many as the number of automobiles that have been produced.
+They are the principal means of transportation in many regions. 
+They also provide a popular form of recreation, and have been adapted for use as children's toys, general fitness, military and police applications, courier services, and bicycle racing.
+The basic shape and configuration of a typical upright, or safety bicycle, has changed little since the first chain-driven model was developed around 1885.
+But many details have been improved, especially since the advent of modern materials and computer-aided design. These have allowed for a proliferation of specialized designs for many types of cycling.
+The bicycle's invention has had an enormous effect on society, both in terms of culture and of advancing modern industrial methods.
+Several components that eventually played a key role in the development of the automobile were initially invented for use in the bicycle, including ball bearings, pneumatic tires, chain-driven sprockets, and tension-spoked wheels.
+Bicycles can be categorized in many different ways: by function, by number of riders, by general construction, by gearing or by means of propulsion. 
+The more common types include utility bicycles, mountain bicycles, racing bicycles, touring bicycles, hybrid bicycles, cruiser bicycles, and BMX Bikes. 
+Less common are tandems, lowriders, tall bikes, fixed gear, folding models, amphibious bicycles and recumbents.
+Unicycles, tricycles and quadracycles are not strictly bicycles, as they have respectively one, three and four wheels, but are often referred to informally as "bikes".
+A bicycle stays upright while moving forward by being steered so as to keep its center of mass over the wheels.
+This steering is usually provided by the rider, but under certain conditions may be provided by the bicycle itself.
+The combined center of mass of a bicycle and its rider must lean into a turn to successfully navigate it.
+This lean is induced by a method known as countersteering, which can be performed by the rider turning the handlebars directly with the hands or indirectly by leaning the bicycle.
+Short-wheelbase or tall bicycles, when braking, can generate enough stopping force at the front wheel to flip longitudinally.
+The act of purposefully using this force to lift the rear wheel and balance on the front without tipping over is a trick known as a stoppie, endo, or front wheelie.
+The bicycle is extraordinarily efficient in both biological and mechanical terms.
+The bicycle is the most efficient human-powered means of transportation in terms of energy a person must expend to travel a given distance.
+From a mechanical viewpoint, up to 99% of the energy delivered by the rider into the pedals is transmitted to the wheels, although the use of gearing mechanisms may reduce this by 10–15%.
+In terms of the ratio of cargo weight a bicycle can carry to total weight, it is also an efficient means of cargo transportation.
+A human traveling on a bicycle at low to medium speeds of around 16–24 km/h (10–15 mph) uses only the energy required to walk. 
+Air drag, which is proportional to the square of speed, requires dramatically higher power outputs as speeds increase.
+If the rider is sitting upright, the rider's body creates about 75% of the total drag of the bicycle/rider combination.
+Drag can be reduced by seating the rider in a more aerodynamically streamlined position.
+Drag can also be reduced by covering the bicycle with an aerodynamic fairing. 
+The fastest unpaced speed on a flat surface is 133.78 km/h (83.13 mph)
+In addition, the carbon dioxide generated in the production and transportation of the food required by the bicyclist, per mile traveled, is less than 1/10 that generated by energy efficient cars.
+The great majority of today's bicycles have a frame with upright seating that looks much like the first chain-driven bike.
+These upright bicycles almost always feature the diamond frame, a truss consisting of two triangles: the front triangle and the rear triangle.
+The front triangle consists of the head tube, top tube, down tube, and seat tube. The head tube contains the headset, the set of bearings that allows the fork to turn smoothly for steering and balance.
+The top tube connects the head tube to the seat tube at the top, and the down tube connects the head tube to the bottom bracket.
+The rear triangle consists of the seat tube and paired chain stays and seat stays.
+The chain stays run parallel to the chain, connecting the bottom bracket to the rear dropout, where the axle for the rear wheel is held.
+The seat stays connect the top of the seat tube (at or near the same point as the top tube) to the rear fork ends.

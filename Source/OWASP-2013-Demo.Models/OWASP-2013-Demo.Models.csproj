@@ -41,14 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication.cs" />
-    <Compile Include="DB\User.cs" />
     <Compile Include="DB\Product.cs" />
     <Compile Include="ProductsCollection.cs" />
     <Compile Include="SiteConfiguration.cs" />
     <Compile Include="Redirect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserPrincipal.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OWASP-2013-Demo.Interfaces\OWASP-2013-Demo.Interfaces.csproj">
