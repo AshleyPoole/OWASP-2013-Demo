@@ -1,0 +1,57 @@
+﻿@model OWASP_2013_Demo.Web.ViewModels.LoginViewModel
+@{
+	ViewBag.Title = "Login";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="col-lg-12">
+		<h2>Sign in</h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-4">
+		<p>Sign in to continue</p>
+		@if (!string.IsNullOrEmpty(Model.ErrorText))
+		{
+			<div class="alert alert-danger">
+				@Model.ErrorText<br />
+				@Html.ValidationSummary()
+			</div>
+			<p></p>
+		}
+
+		@using (Html.BeginForm("Login", "Account"))
+		{
+			<div class="form-group">
+				<label for="@Html.NameFor(m => m.Username)">Username</label>
+				<input type="text" class="form-control" name="@Html.NameFor(m => m.Username)" autocomplete="off"/>
+			</div>
+
+			<div class="form-group">
+				<label for="@Html.NameFor(m => m.Password)">Password</label>
+				<input type="password" class="form-control" name="@Html.NameFor(m => m.Password)" autocomplete="off"/>
+			</div>
+
+			@Html.AntiForgeryToken()
+			<button type="submit" class="btn btn-lg btn-primary">Sign in securely™</button>
+		}
+	</div>
+	<div class="col-lg-4">
+		<p>...don't have an account?</p>
+		<p><a href="@Url.Action("Register", "Account")" class="btn btn-default btn-sm">Sign up securely™</a> &mdash; It only takes 90-115 minutes!</p>
+		<div style="font-size: 85%">
+			<p>Please have the following materials ready before proceeding:</p>
+			<ul>
+				<li>birth certificate(s)</li>
+				<li>proof of insurance</li>
+				<li>verifiable employment history</li>
+				<li>proof of address</li>
+				<li>two to three professional references</li>
+				<li>medical certification of livelihood or (un-)death</li>
+			</ul>
+			<p>Also, our lawyers have educated us that we must put in writing the following disclaimer: <em>In the extremely unlikely event that we, Secure Shopper, "turn evil" this information may be used for our evil global conspiracies.</em></p>
+		</div>
+	</div>
+</div>
