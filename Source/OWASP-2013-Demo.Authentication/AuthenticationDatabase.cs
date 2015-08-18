@@ -33,6 +33,16 @@ namespace OWASP_2013_Demo.Authentication
 		{
 			credentialStore = new Dictionary<string, UserCredentials>();
 			backupFileLocation = HttpContext.Current.Server.MapPath("~/App_Data/passwords.bak");
+			
+			if (!Directory.Exists(Path.GetDirectoryName(backupFileLocation)))
+			{
+				Directory.CreateDirectory(Path.GetDirectoryName(backupFileLocation));
+			}
+
+			if (File.Exists(backupFileLocation))
+			{
+				File.Delete(backupFileLocation);
+			}
 		}
 
 		public UserCredentials GetUserCredentialsByUsername(string username)
