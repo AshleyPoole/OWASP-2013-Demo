@@ -112,9 +112,15 @@ namespace OWASP_2013_Demo.Search
 			}
 		}
 
-		private static string[] SplitLines(string input) => input.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+		private static string[] SplitLines(string input)
+		{
+			return input.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+		}
 
-		private static string[] SplitWords(string input) => input.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+		private static string[] SplitWords(string input)
+		{
+			return input.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+		}
 
 		private static string TitleCase(string str)
 		{

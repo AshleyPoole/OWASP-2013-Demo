@@ -19,9 +19,15 @@ namespace OWASP_2013_Demo.Web.Controllers
 			this.authenticationService = authenticationService;
 		}
 
-		private bool IsAuthenticated => sessionData.Get("AuthenticatedUsername") != null;
+		private bool IsAuthenticated
+		{
+			get { return sessionData.Get("AuthenticatedUsername") != null; }
+		}
 
-		private string AuthenticatedUsername => sessionData.Get("AuthenticatedUsername") as string;
+		private string AuthenticatedUsername
+		{
+			get { return sessionData.Get("AuthenticatedUsername") as string; }
+		}
 
 		private void SetAuthenticated(string username)
 		{
