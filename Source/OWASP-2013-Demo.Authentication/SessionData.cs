@@ -66,13 +66,13 @@ namespace OWASP_2013_Demo.Authentication
 		{
 			// generate a large random Session Id and ensures that it is unused.
 			var rng = new RNGCryptoServiceProvider();
-			var sessionIdBytes = new byte[96];
+			var sessionIdBytes = new byte[30];
 			string sessionId;
 
 			do
 			{
 				rng.GetBytes(sessionIdBytes);
-				sessionId = Convert.ToBase64String(sessionIdBytes);
+				sessionId = Convert.ToBase64String(sessionIdBytes).Replace('/','-').Replace('+','_');
 			}
 			while (sessionStore.ContainsKey(sessionId));
 
