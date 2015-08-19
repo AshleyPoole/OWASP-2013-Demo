@@ -31,6 +31,9 @@ namespace OWASP_2013_Demo.Web.Controllers
 
 		private void SetAuthenticated(string username)
 		{
+			#region Fix A2?
+			//sessionData.StartNewSession();
+			#endregion
 			sessionData.Set("AuthenticatedUsername", username);
 		}
 

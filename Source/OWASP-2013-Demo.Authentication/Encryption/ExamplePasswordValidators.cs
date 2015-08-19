@@ -66,30 +66,7 @@ namespace OWASP_2013_Demo.Authentication.Encryption
 		}
 	}
 
-	// Incorrect way to use salt
-	internal class SingleSaltHashPasswordValidator : IPasswordValidator
-	{
-		// Consumer GPUs can compute billions of NTLM, MD5, and SHA hashes per second.
-		// A rainbow table could be computed using your salt
-
-		public string GenerateValidationString(string password)
-		{
-			var salt = ConfigurationManager.AppSettings["SecretSalt"];
-
-			// TODO: Use this salt to compute SHA hash
-			throw new NotImplementedException();
-		}
-
-		public bool IsPasswordCorrect(string password, string validationString)
-		{
-			var salt = ConfigurationManager.AppSettings["SecretSalt"];
-
-			// TODO: Use this salt to compute SHA hash
-			throw new NotImplementedException();
-		}
-	}
-
-	// Still insecure "correct" salt
+	// Better, but still not secure
 	internal class RandomSaltHashPasswordValidator : IPasswordValidator
 	{
 		// Still, Consumer GPUs can compute billions of NTLM, MD5, and SHA hashes per second.

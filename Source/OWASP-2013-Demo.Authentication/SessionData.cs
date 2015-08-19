@@ -8,6 +8,8 @@ namespace OWASP_2013_Demo.Authentication
 {
 	public interface ISessionData
 	{
+		void StartNewSession();
+
 		object Get(string key);
 
 		void Set(string key, object value);
@@ -42,6 +44,24 @@ namespace OWASP_2013_Demo.Authentication
 
 			currentSessionId = sessionId;
 		}
+
+		#region Fix A2
+		public void StartNewSession()
+		{
+			//ConcurrentDictionary<string, object> oldSession;
+			//sessionStore.TryRemove(currentSessionId, out oldSession);
+
+			//currentSessionId = NewSessionId();
+			//sessionStore[currentSessionId] = new ConcurrentDictionary<string, object>();
+
+			//// keep their session going for a couple more hours
+			//var sessionCookie = new HttpCookie(COOKIE_NAME, currentSessionId);
+			//sessionCookie.Expires = DateTime.Now.AddHours(2);
+			//HttpContext.Current.Response.SetCookie(sessionCookie);
+
+			throw new NotImplementedException();
+		}
+		#endregion
 
 		public object Get(string key)
 		{
